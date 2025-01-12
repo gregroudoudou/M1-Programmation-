@@ -46,7 +46,7 @@ library(flexdashboard)
 ```
 
 
-### Exemple de réussite des installations : permettre un lancement sur l'environnement de travail RStudio 
+### Lancerl'application Rshiny : permettre un lancement sur l'environnement de travail RStudio 
 #### 
 Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. Ainsi, un premier chargement avec le 
 
