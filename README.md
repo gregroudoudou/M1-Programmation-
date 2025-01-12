@@ -10,15 +10,18 @@ Au final, le but essentiel est  de pouvoir améliorer les choix en matière de d
 
 
 
-#~# Cadre du projet
+# Cadre du projet
 Ce travail a été effectué dans le cadre d'un projet en Master DS2E à Strasbourg durant le 1er semestre de 2024 par Grégoire Fuchs . 
 Il sera présenté le 14 Janvier 2025. 
 
 
-##Prérequis 
+# Prérequis 
 Afin de pouvoir charger  les packages, il est important d'installer avant l'ensemble des packages nécessaires. 
 
-### Liste des packages requis
+Ainsi , il vous suffit de copier ces lignes de code afin d'installer les packages nécessaires.
+
+```r 
+ #Liste des packages requis
 packages_requis <- c("rstatix", "DescTools", "stats", "shiny", "shinyjs", "DT", "rintrojs")
 
 ### Fonction pour installer et charger les packages
@@ -37,10 +40,14 @@ installer_et_charger <- function(packages) {
 ### Exécution de la fonction
 installer_et_charger(packages_requis)
 
+### Installation du code R et lancement des applications. 
 
-##Construit avec 
+```
+
+###Construit avec 
 -Rshiny
 -Rmarkdown
+-Flexdashboard
 -de nombreux packages de tests statistiques : Rstatix, 
 
 
