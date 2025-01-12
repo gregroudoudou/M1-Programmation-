@@ -10,7 +10,7 @@ Enfin, ce readme permet de rapidement lancer l'application .
 
 ## Lancement rapide  
 
-### Vérifier ses pré-Requis en termes de packages 
+### Tout fichier confondu : installation des packages nécessaires. 
 Le 1er pré-requis est d'avoir la version de Rstudio la plus récente, ainsi que les packages nécessaires, rappelés ci-dessous. 
 Le document R ou Rmarkdown contient normalement cette étape, voici un code similaire si vous avez loupez cette étape. De nombreux packages sont nécessaires afin de pouvoir effectuer les tests statistiques. 
 L'application a été réalisée sous l'IDE Rstudio, qui a également créé le langage Rshiny, son téléchargement est donc recommandé. 
