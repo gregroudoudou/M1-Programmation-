@@ -39,9 +39,14 @@ installer_et_charger(packages_requis)
 ### Installation du code R et lancement des applications. 
 
 ```
+On a également ce package à installer, si vous souhaitez accéder au diaporama interactif. 
+```
+install.packages("flexdashboard")
+library(flexdashboard)
+```
 
 
-### Exemple sur l'environnement de travail RStudio de l'icône de lancement
+### Exemple de réussite des installations : permettre un lancement sur l'environnement de travail RStudio 
 #### 
 Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. Ainsi, un premier chargement avec le 
 
@@ -51,13 +56,14 @@ Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez do
 Voici une capture d'écran de l'icône qui est censé apparaître. 
 ![Icône de lancement de l'application RShiny](prograprojet1.png)
 
-####Lancer l'application Logiciel de statisitques  en appuyant sur "Run app" ! 
+#### Lancer l'application Logiciel de statisitques  en appuyant sur "Run app" ! 
 
 
-## 3.Lancer le fichier Rmarkdwon avec le dashboard interactif. 
-Ainf de lancer le diaporama Rmarkdown, réalisé avec flexdashboard, il est important de télécharger d'abord flexdashboard et de vérifier qu'il est bien exécuter. 
-Normalement, il devrait s'afficher sur un fichier html à part ; mais qui est néanmoins interactif étant donné qu'il permet d'insérer l'application entière en elle-même, facilitant les explications des exemples d'utilisation. 
-
+## 3.Lancer le fichier Rmarkdwon "DiaporamaProjetRshinyFinal.rmd : une présentation interactive.  
+Ainsi de lancer le diaporama Rmarkdown, réalisé avec flexdashboard, il est important de télécharger d'abord flexdashboard et de vérifier qu'il est bien exécuter. 
+Ensuite, il devrait , après avoir chargé le fichier DiaporamaProjetRshinyFinal.rmd, avoir la possibilité de lancer le diaporama interactif en appuyant sur "RUN document" "",
+Normalement, la présnetation devrait s'afficher sur un fichier html à part ; ce qui permet l'interactivité.
+Il  permet ainsi d'insérer l'application entière en elle-même, facilitant les explications des exemples d'utilisation. 
 
 
 
@@ -86,9 +92,9 @@ Le résultat final du test est alors affiché dans le cadre. Afin de pouvoir aff
 ## 2eme possibilité d'utilisation : tester la significativité entre les variables . 
 Il suffit cette fois-ci pour l'utilisatuer de sélectionner la variable expliquée et explicative , ce qui permet donc de tester la significativité. 
 
-#2eme application : 
-#Charger le fichier R
-#Mettre en place les données. 
+# 2eme application : comparer des modèles de régression statistique 
+# Charger le fichier R
+# Mettre en place les données. 
 Les données peuvent être chargées sous différents formats : R, csv....
 #
 : la comparaison des performances (R2, Fischer...) entre différentes régresssions multiples, logistiques , avec sélection individuelle des variables. 
