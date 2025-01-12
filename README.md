@@ -41,6 +41,8 @@ installer_et_charger(packages_requis)
 ### Lancer la première application R Shiny . 
 Après avoir téléchargé  le fichier ",et d'avoir installé autant que charger les différents packages sous R ,  il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
 
+### Lancer la deuxième application R Shiny. 
+Après avoir téléchargé  le fichier " , et d'avoir installé autant que charger les différents packages sous R ,  il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
 
 # Démarre rapidement le dashboard avec le fichier Rmarkdown
 
@@ -64,12 +66,23 @@ H1 : où valeur de référence rentrée par l'individu mu0. De plus, la valeur m
 Après avoir lancé l'application, l'application Shiny permet notamment de sélectionner le test statistique qui sera le plus approprié. 
 Ainsi, le 1ere critère sera par exemple le respect de l'hypothèse de normalité de la variable Y . Un texte s'affiche automatiquement afin d'indiquer à l'utilisateur si la variable Y suit une loi normale ou pas. Ainsi, cela permet de savoir si on va utiliser un test paramétrique (distribution normale) ou non paramétrique. 
 
-Ensuite, entre en jeu le type de variable Y : si la variable est binaire, quantiative ou multinomiale.Certains tests , en effet, notamment paramétriques, reposent d'emblée sur les régressions sous-jacentes. Ensuite, la variable X , explicative est choisie :elle peut être dichotomique, quantitative ou 
+Ensuite, entre en jeu le type de variable Y : si la variable est binaire, quantiative ou multinomiale.Certains tests , en effet, notamment paramétriques, reposent d'emblée sur les régressions sous-jacentes. Ensuite, la variable X , explicative est choisie :elle peut être dichotomique, quantitative ou catégorielle.Cela permet ainsi d'effectuer le test statistique adéquat, et de mettre en place des étapes, parfois oubliées, comme le respect des hypothèses. 
+
+### 3.Résultat final
+Le résultat final du test est alors affiché dans le cadre. Afin de pouvoir afficher l'ensemble des résultats de chaque test (intervalles de confiances, degrés de libertés...), qui sont souvent propres à chaque test statistique, j'ai décidé de garder l'encadré originel. 
+
 
 ## 2eme possibilité d'utilisation : tester la significativité entre les variables . 
 Il suffit cette fois-ci pour l'utilisatuer de sélectionner la variable expliquée et explicative , ce qui permet donc de tester la significativité. 
 
+#2eme application : 
+#Charger le fichier R
+#Mettre en place les données. 
+Les données peuvent être chargées sous différents formats : R, csv....
+#
+: la comparaison des performances (R2, Fischer...) entre différentes régresssions multiples, logistiques , avec sélection individuelle des variables. 
 
+Dans le but d'une régression, 
  
 Ainsi, la partie de tests statistiques permet essentiellement de vérifier la qualité des données, avant de pouvoir les utiliser. 
 De plus, une seconde partie a été ajoutée, dans la continuité de la 1ere , qui permet notamment de comparer la performances des modèles. 
