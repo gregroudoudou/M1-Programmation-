@@ -53,8 +53,9 @@ Après avoir téléchargé sur Github le fichier R "Logicielqualitéanalysededon
 #### Détection de Rshiny : vérifier la présence du bouton Run App 
 Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez donc suivi l'étape suivante d'installation des packages, il devra s'afficher normalement un bouton supplémentaire, à côté du run, dénommé Run App, comme indiqué ici sous Rstudio. 
 
-Voici une capture d'écran de l'icône qui est censé apparaître. 
-![Icône de lancement de l'application RShiny](prograprojet1.png)
+Voici une capture d'écran de l'icône qui est censé apparaître.
+
+[Icône de lancement de l'application RShiny](prograprojet1.png)
 
 #### Lancer l'application de statistiques  en appuyant sur "Run app" ! 
 
@@ -93,10 +94,13 @@ Le résultat final du test est alors affiché dans le cadre. Afin de pouvoir aff
 Il suffit cette fois-ci pour l'utilisatuer de sélectionner la variable expliquée et explicative , ce qui permet donc de tester la significativité. 
 
 # 2eme application : comparer des modèles de régression statistique 
-# Charger le fichier R
-# Mettre en place les données. 
+
+# Utilisation rapide 
+### Charger le fichier R
+### Mettre en place les données. 
 Les données peuvent être chargées sous différents formats : R, csv....
-#
+
+### Comparer les performances. 
 : la comparaison des performances (R2, Fischer...) entre différentes régresssions multiples, logistiques , avec sélection individuelle des variables. 
 
 Dans le but d'une régression, 
@@ -124,25 +128,19 @@ Lorsqu'un utilisateur souhaite charger une autre base de données, il doit l'imp
 Afin de pouvoir charger  les packages, il est important d'installer avant l'ensemble des packages nécessaires. 
 
 
-###Construit avec 
+# Construit avec 
 -Rshiny
 -Rmarkdown
 -Flexdashboard
 -de nombreux packages de tests statistiques : Rstatix, 
 
 
-##Auteur
+# Auteur
 Grégoire Fuchs 
-
-## Licence
-
-Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails
 
 # Remerciements
 
 * Un grand merci à tous les utilisateurs ! 
-
-: 
--le code 
--les données d'exemples 
--les résultats sous forme d'un diaporama effectué avec flexdashboard 
+# Sources 
+Tutoriels R shiny github
+Tutoriels Flexdashboard 
