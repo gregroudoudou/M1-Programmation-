@@ -41,21 +41,23 @@ installer_et_charger(packages_requis)
 ```
 
 
-### Exemples de résultats après avoir chargé l'application 
-Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. 
+### Exemple sur l'environnement de travail RStudio de l'icône de lancement
+#### 
+Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. Ainsi, un premier chargement avec le 
 
+#### Vérifier la présence du bouton Run App 
 Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez donc suivi l'étape suivante d'installation des packages, il devra s'afficher normalement un bouton supplémentaire, à côté du run, dénommé Run App, comme indiqué ici sous Rstudio. 
 
-### Lancer la première application R Shiny . 
-Après avoir téléchargé  le fichier ",et d'avoir installé autant que charger les différents packages sous R ,  il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
+Voici une capture d'écran de l'icône qui est censé apparaître. 
+![Icône de lancement de l'application RShiny](prograprojet1.png)
 
-### Lancer la deuxième application R Shiny. 
-- Après avoir téléchargé  le fichier " , et d'avoir installé autant que charger les différents packages sous R
-- il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
+####Lancer l'application Logiciel de statisitques  en appuyant sur "Run app" ! 
 
-# Démarre rapidement le dashboard avec le fichier Rmarkdown
 
-Etant donné qu'il y avait un nombre important d'erreurs sous Rmarkdown, afin de pouvoir lancer l'exécution de tests statistiques. 
+## 3.Lancer le fichier Rmarkdwon avec le dashboard interactif. 
+Ainf de lancer le diaporama Rmarkdown, réalisé avec flexdashboard, il est important de télécharger d'abord flexdashboard et de vérifier qu'il est bien exécuter. 
+Normalement, il devrait s'afficher sur un fichier html à part ; mais qui est néanmoins interactif étant donné qu'il permet d'insérer l'application entière en elle-même, facilitant les explications des exemples d'utilisation. 
+
 
 
 
