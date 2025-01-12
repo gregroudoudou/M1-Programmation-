@@ -55,7 +55,7 @@ Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez do
 
 Voici une capture d'écran de l'icône qui est censé apparaître.
 
-[Icône de lancement de l'application RShiny](projetprogra1.png)
+![Icône de lancement de l'application RShiny](projetprogra1.png)
 
 #### Lancer l'application de statistiques  en appuyant sur "Run app" ! 
 
