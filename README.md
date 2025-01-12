@@ -63,14 +63,17 @@ Voici une capture d'écran de l'icône qui est censé apparaître.
 ## 3.Lancer le fichier Rmarkdwon "DiaporamaProjetRshinyFinal.rmd : une présentation interactive.  
 Ainsi de lancer le diaporama Rmarkdown, réalisé avec flexdashboard, il est important de télécharger d'abord flexdashboard et de vérifier qu'il est bien exécuter. 
 Ensuite, il devrait , après avoir chargé le fichier DiaporamaProjetRshinyFinal.rmd, avoir la possibilité de lancer le diaporama interactif en appuyant sur "RUN document" "",
-Normalement, la présnetation devrait s'afficher sur un fichier html à part ; ce qui permet l'interactivité.
+
+Normalement, la présentation devrait s'afficher sur un fichier html à part ; ce qui permet l'interactivité.
 Il  permet ainsi d'insérer l'application entière en elle-même, facilitant les explications des exemples d'utilisation. 
 
 
 
-# Exemples d'applications. 
+# Exemples d'utilisation de l'application Rshiny "Logicieldeteststatistique"
+Tout d'abord, on peut souligner que les deux applications sont fusionnées dans le diaporama/page interactive , que l'on peut lancer à partir du fichier markdown. 
+Ainsi, les deux applications peuvent être lancées simultanément, en lançant qu'un seul document également. En effet, il n'est pas possible de lancer deux applications Rshiny en même temps. 
 
-## 1er posssibilité d'utilisation  : comparer une moyenne d'échantillon avec une moyenne de population : la valeur de référence. 
+## 1er posssibilité   : comparer une moyenne d'échantillon avec une moyenne de population : la valeur de référence. 
 
 La première application de statistiques automatisées ;dans le cadre notamment de tests de différences de moyennes  entre deux populations. Cela permet notamment de savoir si on a un échantillon représentatif de la population générale par exemple. 
 
@@ -90,7 +93,7 @@ Ensuite, entre en jeu le type de variable Y : si la variable est binaire, quanti
 Le résultat final du test est alors affiché dans le cadre. Afin de pouvoir afficher l'ensemble des résultats de chaque test (intervalles de confiances, degrés de libertés...), qui sont souvent propres à chaque test statistique, j'ai décidé de garder l'encadré originel. 
 
 
-## 2eme possibilité d'utilisation : tester la significativité entre les variables . 
+## 2eme possibilité : tester la significativité entre les variables . 
 Il suffit cette fois-ci pour l'utilisatuer de sélectionner la variable expliquée et explicative , ce qui permet donc de tester la significativité. 
 
 # 2eme application : comparer des modèles de régression statistique 
