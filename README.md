@@ -42,7 +42,8 @@ installer_et_charger(packages_requis)
 Après avoir téléchargé  le fichier ",et d'avoir installé autant que charger les différents packages sous R ,  il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
 
 ### Lancer la deuxième application R Shiny. 
-Après avoir téléchargé  le fichier " , et d'avoir installé autant que charger les différents packages sous R ,  il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
+- Après avoir téléchargé  le fichier " , et d'avoir installé autant que charger les différents packages sous R
+- il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
 
 # Démarre rapidement le dashboard avec le fichier Rmarkdown
 
