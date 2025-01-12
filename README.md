@@ -9,9 +9,14 @@ Ensuite, le code Rmarkdown , permet de créer un dashboard interactif, qui perme
 Enfin, ce readme permet de rapidement lancer l'application . 
 
 ## Lancement rapide 
+### Téléchargement sur Github
+Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. 
+
+Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez donc suivi l'étape suivante d'installation des packages, il devra s'afficher normalement un bouton supplémentaire, à côté du run, dénommé Run App, comme indiqué ici sous Rstudio.  
 
 ### Vérifier ses pré-Requis en termes de packages 
-
+Le 1er pré-requis est d'avoir la version de Rstudio la plus récente, ainsi que les packages nécessaires, rappelés ci-dessous. 
+L'application a été réalisée sous l'IDE Rstudio, qui a également créé le langage Rshiny, son téléchargement est donc recommandé. 
 Ainsi , il vous suffit de copier ces lignes de code afin d'installer les packages nécessaires et de pouvoir lancer l'application avec l'onglet run .
 
 ```r 
