@@ -10,7 +10,7 @@ Au final, le but essentiel est  de pouvoir améliorer les choix en matière de d
 
 
 
-##Cadre du projet
+#~# Cadre du projet
 Ce travail a été effectué dans le cadre d'un projet en Master DS2E à Strasbourg durant le 1er semestre de 2024 par Grégoire Fuchs . 
 Il sera présenté le 14 Janvier 2025. 
 
@@ -18,10 +18,10 @@ Il sera présenté le 14 Janvier 2025.
 ##Prérequis 
 Afin de pouvoir charger  les packages, il est important d'installer avant l'ensemble des packages nécessaires. 
 
-# Liste des packages requis
+### Liste des packages requis
 packages_requis <- c("rstatix", "DescTools", "stats", "shiny", "shinyjs", "DT", "rintrojs")
 
-# Fonction pour installer et charger les packages
+### Fonction pour installer et charger les packages
 installer_et_charger <- function(packages) {
   for (pkg in packages) {
     if (!require(pkg, character.only = TRUE)) {
@@ -34,7 +34,7 @@ installer_et_charger <- function(packages) {
   }
 }
 
-# Exécution de la fonction
+### Exécution de la fonction
 installer_et_charger(packages_requis)
 
 
@@ -42,6 +42,7 @@ installer_et_charger(packages_requis)
 -Rshiny
 -Rmarkdown
 -de nombreux packages de tests statistiques : Rstatix, 
+
 
 ##Auteur
 Grégoire Fuchs 
