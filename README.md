@@ -47,16 +47,16 @@ library(flexdashboard)
 
 
 ### Lancerl'application Rshiny : permettre un lancement sur l'environnement de travail RStudio 
-#### 
-Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. Ainsi, un premier chargement avec le 
+#### Lancer le fichier R après téléchargement. 
+Après avoir téléchargé sur Github le fichier R "Logicielqualitéanalysededonnéesstatistiquesautomatiques.R", il vous suffit de le lancer avec un IDE choisi. 
 
-#### Vérifier la présence du bouton Run App 
+#### Détection de Rshiny : vérifier la présence du bouton Run App 
 Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez donc suivi l'étape suivante d'installation des packages, il devra s'afficher normalement un bouton supplémentaire, à côté du run, dénommé Run App, comme indiqué ici sous Rstudio. 
 
 Voici une capture d'écran de l'icône qui est censé apparaître. 
 ![Icône de lancement de l'application RShiny](prograprojet1.png)
 
-#### Lancer l'application Logiciel de statisitques  en appuyant sur "Run app" ! 
+#### Lancer l'application de statistiques  en appuyant sur "Run app" ! 
 
 
 ## 3.Lancer le fichier Rmarkdwon "DiaporamaProjetRshinyFinal.rmd : une présentation interactive.  
