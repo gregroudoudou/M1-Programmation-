@@ -8,14 +8,11 @@ Ainsi, le code R permet de lancer directement chacune des applications Shiny.
 Ensuite, le code Rmarkdown , permet de créer un dashboard interactif, qui permet donc d'intégrer autant les applications RShiny que l'explication du code en lui-même, dans ses grandes lignes. 
 Enfin, ce readme permet de rapidement lancer l'application . 
 
-## Lancement rapide 
-### Téléchargement sur Github
-Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. 
-
-Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez donc suivi l'étape suivante d'installation des packages, il devra s'afficher normalement un bouton supplémentaire, à côté du run, dénommé Run App, comme indiqué ici sous Rstudio.  
+## Lancement rapide  
 
 ### Vérifier ses pré-Requis en termes de packages 
 Le 1er pré-requis est d'avoir la version de Rstudio la plus récente, ainsi que les packages nécessaires, rappelés ci-dessous. 
+Le document R ou Rmarkdown contient normalement cette étape, voici un code similaire si vous avez loupez cette étape. De nombreux packages sont nécessaires afin de pouvoir effectuer les tests statistiques. 
 L'application a été réalisée sous l'IDE Rstudio, qui a également créé le langage Rshiny, son téléchargement est donc recommandé. 
 Ainsi , il vous suffit de copier ces lignes de code afin d'installer les packages nécessaires et de pouvoir lancer l'application avec l'onglet run .
 
@@ -42,6 +39,12 @@ installer_et_charger(packages_requis)
 ### Installation du code R et lancement des applications. 
 
 ```
+
+
+### Exemples de résultats après avoir chargé l'application 
+Après avoir téléchargé sur Github le fichier R, et si vous souhaitez utiliser une autre base de données, double-cliquez sur un des fichiers .R qui permettra de lancer l'application et de le charger sous votre IDE préféré. 
+
+Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez donc suivi l'étape suivante d'installation des packages, il devra s'afficher normalement un bouton supplémentaire, à côté du run, dénommé Run App, comme indiqué ici sous Rstudio. 
 
 ### Lancer la première application R Shiny . 
 Après avoir téléchargé  le fichier ",et d'avoir installé autant que charger les différents packages sous R ,  il vous suffit de cliquer sur run dans le fichier R afin de lancer l'application Shiny qui s'appelle Logiciel de statistiques. 
