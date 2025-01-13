@@ -34,7 +34,17 @@ installer_et_charger <- function(packages) {
 ### Exécution de la fonction
 installer_et_charger(packages_requis)
 
-### Installation du code R et lancement des applications. 
+### Installation du code R et lancement des applications.
+Pour la seconde application, voici la liste de packages à installer.
+
+library(shiny)
+library(dplyr)
+library(car)       
+library(broom)  
+library(stringr)  
+library(leaps)    #Sélection logistique en régression multiple. 
+library(bestglm)   # pour Sélection exhaustive 
+library(glmnet)    # pour Elastic Net / Lasso / Ridge
 
 ```
 On a également ce package à installer, si vous souhaitez accéder au diaporama interactif. 
