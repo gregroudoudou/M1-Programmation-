@@ -1,12 +1,13 @@
 # M1-Programmation-
 
 #Description courte du projet 
-Ce dossier a pour but de permettre de lancer une application qui va automatiser l'exécution de tests statististiques , permettant de sélectionner des données de qualité , autant que des liaisons entre les variables significatives. De plus, il est également proposé de pouvoir comparer par la suite des modèles de régression, à partir des données utilisées. 
+Ce dossier a pour but de permettre de lancer une application qui va automatiser l'exécution de tests statististiques , permettant de sélectionner des données de qualité , autant que des liaisons entre les variables significatives. De plus, il est également proposé de pouvoir comparer par la suite des modèles de régression, à partir des données utilisées. <br>
+
 # Structure des dossiers et des fichiers du Github 
 
-Ainsi, le code R permet de lancer directement chacune des applications Shiny. 
-Ensuite, le code Rmarkdown , permet de créer un dashboard interactif, qui permet donc d'intégrer autant les applications RShiny que l'explication du code en lui-même, dans ses grandes lignes. 
-Enfin, ce readme permet de rapidement lancer l'application . 
+Ainsi, le code R permet de lancer directement chacune des applications Shiny, que ce soit celle de performance du modèle ou celle de tests statistiques . <br>
+Ensuite, le code Rmarkdown , permet de créer un dashboard interactif, qui permet donc d'intégrer autant les applications RShiny que l'explication du code en lui-même, dans ses grandes lignes. <br>
+Enfin, ce readme permet de rapidement lancer correctement l'application . 
 
 ## Pré-requis : installation des packages nécessaires. 
 Le 1er pré-requis est d'avoir la version de Rstudio la plus récente, ainsi que les packages nécessaires, rappelés ci-dessous. 
@@ -135,7 +136,8 @@ Il sera présenté le 14 Janvier 2025.
 
 
 # Prérequis 
-#1er prérequis : avoir une  base de données
+#1er prérequis : avoir une  base de données ou pour s'entraîner, garder celle qui est préchargé de mtcars. 
+<br>
 La base de données mtcars, qui est une base de données qui décrit les caractéristiques de nombreuses voitures est d'emblée pré-chargée. 
 Lorsqu'un utilisateur souhaite charger une autre base de données, il doit l'importer sous formes de bases de données au format csv , .txt, .xslx, .rds, .sas7dat,.sav. Ainsi, la majorité des formats de base de données sont acceptés. 
 
