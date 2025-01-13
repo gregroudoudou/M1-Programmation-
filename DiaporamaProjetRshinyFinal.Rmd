@@ -1,0 +1,1974 @@
+---
+title: "Diaporama Logiciel de statistiques"
+output:
+  flexdashboard::flex_dashboard:
+    orientation : columns
+    vertical_layout: scroll
+    navigation: true
+date: "2025-01-08"
+runtime: shiny
+theme : cerulan 
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+
+<style>
+
+/\* Taille de la police pour le corps du texte \*/ body { font-size:
+16px; }
+
+<style>
+/* Taille de la police pour les titres de niveau 1 (Pages) */
+h2 {
+  font-size: 36px;
+  color: #333333;
+}
+/* Taille de la police pour les titres de niveau 2 (Colonnes/Lignes) */
+h2 {
+  font-size: 30px;
+  color: #555555;
+}
+/* Taille de la police pour les titres de niveau 3 (Panneaux) */
+h3 {
+  font-size: 24px;
+  color: #777777;
+}
+</style>
+<style>
+  /* Augmenter l'espace entre la barre de navigation et le contenu */
+  .navbar {
+    margin-bottom: 32rem; /* Ajustez cette valeur pour contrôler l'espace */
+  }
+</style>
+
+
+
+
+# Introduction
+
+
+**Warning** : l'application est mieux affichée dans le navigateur que sous RStudio, car les premières lignes sont visibles. 
+
+
+Quel est le but de cette application ?
+
+
+Cette application va permettre de choisir automatiquement un test
+statistique, parmi les statistiques paramétriques et semi-paramétriques
+, offrant une analyse approfondie, et surtout automatique. Ces tests permettent alors autant de vérifier si nos données sont cohérentes (représentativités), qu'à vérifier de manière appropriée, dans le cas de modélisation complexe, la significativité de la relation entre deux variables X et Y. 
+
+Automatique car aucune action de l'utilisateur n'est à effectuer,
+excepté l'importation et la sélection de variables.
+
+Enfin, l'utilisateur peut sélectionner le modèle , avec le R2, donc le pouvoir explicatif le plus élevé, en réalisant le maximum possible de spécifications du modèle, dans le but d'une recherche exhaustive.
+
+Dans quelle mesure peut-on fortement augmenter la qualité des analyses de données ? 
+Cette application va répondre à ces questions ! 
+
+# Principes des outils {data-navmenu="Synopsys"}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Shiny - Avantages et Fonctionnalités</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>R Shiny : Avantages et Fonctionnalités</h1>
+    <p>R Shiny est une plateforme open source qui permet d'exécuter des calculs scientifiques tout en offrant à l'utilisateur la possibilité de modifier de nombreux paramètres. Voici les principales fonctionnalités :</p>
+    
+    <ol>
+        <li>
+            Interactivité : L'un des avantages majeurs de Shiny est son interactivité. Il permet d'adapter des tests statistiques à toute base de données, évitant ainsi de devoir utiliser une base par défaut.
+        </li>
+        <li>
+            Visualisation dynamique : Les graphiques s'affichent et s'actualisent en temps réel. Par exemple, la fonction <code>renderPlot</code> remplace le traditionnel <code>plot</code> de R pour afficher les résultats graphiques. Plus généralement, toutes les commandes débutant par <code>render</code> génèrent un output qui est ensuite intégré à l'interface utilisateur.
+        </li>
+        <li>
+            Déploiement sur le web : Les applications Shiny peuvent être déployées en ligne, permettant de créer des dashboards accessibles via un simple navigateur.
+        </li>
+        <li>
+            Intégration du langage R : Shiny utilise pleinement le langage R, permettant ainsi d'effectuer des analyses statistiques et de produire des visualisations avancées.
+        </li>
+    </ol>
+</body>
+</html>
+
+</head>
+
+# Difficultés {data-navmenu="Synopsys"}
+<body>
+    <h1>Difficultés et choix des outils</h1>
+
+    <h2>Difficultés</h2>
+    <ol>
+        <li>
+            Syntaxe : 
+            Shiny se divise en deux parties : l'UI et le serveur. Cela impose une syntaxe stricte avec des virgules et une bonne indentation. 
+            De plus, la fonction serveur peut être particulièrement longue, parfois dépassant 700 lignes. 
+            Ce choix est néanmoins compatible avec les chunks de Rmarkdown.
+        </li>
+        <li>
+            Sensibilité à la casse : 
+            Une simple erreur comme une virgule ou un espace manquant peut empêcher l'application de s'afficher.
+        </li>
+    </ol>
+
+    <h2>Choix du support de présentation</h2>
+    <h3>Pourquoi Flexdashboard et pas OSlides ?</h3>
+    <ol>
+        <li>
+            Diapos interactives : 
+            Flexdashboard permet de créer des présentations dynamiques avec des visualisations interactives.
+        </li>
+        <li>
+            Implémentation native de R Shiny : 
+            Flexdashboard repose sur l'intégration de Shiny dans Rmarkdown, nécessitant l'ajout du paramètre <code>runtime: Shiny</code> dans le YAML. 
+            Cela permet d'exécuter du code Shiny directement dans un document Rmarkdown via la fonction <code>shinyApp</code>.
+        </li>
+        <li>
+            Utilisation du code html qui allonge le temps de rédaction du code : 
+            Le flexdashboard utilise du langage html : il a donc fallu au final coder une grande partie du code pour afficher le texte en html étant donné que cela ne rendait pas bien. Evidemment, cela s'est fait avec des aides extérieures. 
+        </li>
+    </ol>
+</body>
+</html>
+
+ 
+
+
+
+
+
+# Structure de l'application {data-navmenu="Logique algorithmique"}
+
+L'application suit globalement  la logique suivante :
+ 
+    <style>
+        h1 {
+            font-style: italic;
+        }
+        h2 {
+            font-weight: normal;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<br>
+<br>
+<br>
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Interface Utilisateur (sélection)</title>
+</head>
+<body>
+  <h1>I. Créer la partie interface utilisateur (sélection)</h1>
+  <ul>
+    <li>
+      <h2>1. Proposition d'importer un fichier en différents formats : excel, csv, ...</h2>
+    </li>
+    <li>
+      <h2>2. Proposition d'un choix dans un menu déroulant des variables clés X et Y</h2>
+      <ul>
+        <li>
+          <h3>2.1 Cas particulier (test de conformité) : une seule variable sélectionnée et introduction d'une valeur de référence</h3>
+        </li>
+        <li>
+          <h3>2.2 Si données appariées : un nouveau menu déroulant s'ouvre : choisir 1 variable identifiant</h3>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>
+
+    <h1>Serveur : II. Partie automatisée : choix du test le plus performant</h1>
+    <h2>I. Typologie</h2>
+    <ul>
+        <li><h2>1. Vérification de l'hypothse de normalité : choix test paramétrique ou semi-paramétrique  (histogramme et phrase d'avertissement)</h2></li>
+        <li><h2>2. Détermination par if-else  du type de Y : binaire, multinomial, quantitatif</h2></li>
+        <li><h2>3. Détermination par if-else du type de X : numérique, dichotomique, catégoriel</h2></li>
+        <li><h2>4. Création d'un vecteur de résultats</h2></li>
+    </ul>
+
+    <h2>II. Détermination : nouvelle fonction</h2>
+    <ul>
+        <li><h2>1. Détermination notamment du meilleur test statistique suivant les types</h2></li>
+        <li><h2>2. Mise en place du lien entre les packages de calculs de test et le résultat de la fonction de détermination de meilleure performance</h2></li>
+    </ul>
+
+    <h1>III. Chargement</h1>
+    <ul>
+        <li><h2>1. Grâce à Shinyapp (ui=, server=) de l'UI et du Server, deux paramètres obligatoires afin que l'application se lance</h2></li>
+    </ul>
+</body>
+</html>
+
+    </ol>
+  
+Pour la seconde application, qui permet de sélectionner un modèle statistique le plus performant , on retrouve cette logique algorithmique, qui est fondée sur des onglets différents effectués avec Observeevent. 
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Explications de l'application Elastic Net</title>
+</head>
+<body>
+
+
+<h1>Deuxième application : 1 sélection de modèles avec d'un côté les méthodes de sélection exhaustive et d'un autre côté celle de l'Elastic Net</h1>
+
+<h2>I. Introduction</h2>
+<ul>
+  <li><h3>1. Choix du jeu de données : mtcars ou import CSV</h3></li>
+  <li><h3>2. Sélection de la variable Y et des variables X</h3></li>
+  <li><h3>3. Lancement de l'application via <code>fluidPage</code> et onglets (<code>tabsetPanel</code>)</h3></li>
+</ul>
+
+
+<h2>II. Régressions (Résultats Automatiques et Modèle Personnalisé)</h2>
+<ul>
+  <li><h3>1. Régression linéaire multiple (si Y numérique), régression logistique (si Y binaire)</h3></li>
+  <li><h3>2. Calcul du VIF, affichage des métriques (R2, F-Stat, AIC, BIC, etc.)</h3></li>
+  <li><h3>3. Possibilité de choisir manuellement les variables X (Modèle Personnalisé)</h3></li>
+</ul>
+
+
+<h2>III. Sélection exhaustive</h2>
+<ul>
+  <li><h3>1. Exploration exhaustive pour modèles linéaires (via <code>regsubsets</code>) ou logistiques (via <code>bestglm</code>)</h3></li>
+  <li><h3>2. Comparaison des sous-modèles selon AIC, BIC, R2 ajusté, etc.</h3></li>
+  <li><h3>3. Affichage d’un tableau récapitulatif (sans imposer la sélection finale)</h3></li>
+</ul>
+
+<h2>IV. Elastic Net</h2>
+<ul>
+  <li><h3>1. Utilisation de <code>glmnet</code> avec <code>cv.glmnet</code> (alpha = 0.5) pour le compromis entre Lasso/Ridge</h3></li>
+  <li><h3>2. Partition des données : par exemple 70% train / 30% test (ou inverse)</h3></li>
+  <li><h3>3. Calcul des coefficients au <code>lambda.min</code> (ou <code>lambda.1se</code>), prédiction sur test</h3></li>
+  <li><h3>4. Affichage de R2, R2 ajusté, et F-stat si Y est numérique (pas de F-stat pour logistique)</h3></li>
+</ul>
+
+<h2>V. Lancement</h2>
+<ul>
+  <li><h3>1. <code>shinyApp(ui, server)</code> pour démarrer l'application</h3></li>
+  <li><h3>2. Tous les onglets (Introduction, Résultats, Modèle Perso, Sélection exhaustive, Elastic Net) sont accessibles</h3></li>
+</ul>
+
+</body>
+</html>
+
+
+
+
+Test de l'échantillon représentatif {data-navmenu="Test"}
+===========================
+
+Dans cette section, nous allons réaliser quelques tests afin de tester si nos boucles if-else comme annoncé fonctionnent correctement, en s'adaptant à chaque type de variable. 
+
+Dans cette section, une seule variable va être sélectionnée. 
+
+<h2 style="font-size: 24px;">1.Test de conformité ou de représentativité (Drat et valeur de référence)</h2>
+
+But:vérifier si on a un échantillon conforme, mais avec des variables catégorielles ou dummies, qui sont souvent non -paramétriques également. 
+
+Processus sur l'application :
+<br>
+1. Y  : un **menu déroulant** s'ouvre avec l'ensemble des variables de la base de données
+La variable Y est également automatiquement détectée comme normale , ce qui n'est pas affiché. 
+<br>
+2. X :choisir la valeur de référence **(ex : 3,5)**   
+Cette moyenne peut-être la moyenne nationale. 
+
+<br>
+ Hypothèses : 
+ <br>
+  H0: Moyenne <strong> de la population</strong> générale (X) =3,9 (entrée par l'utilisateur)=Moyenne de <strong>l'échantillon </strong> de la base de donnée "drat" du package Mtcars 
+  <br>
+  H1 : les deux moyennes sont différentes de la valeur de référence (supposée vraie), l'échantillon n'est <strong>pas représentatif ou conforme. </strong>
+ 
+<br>
+Résultats : 
+Or le résultat est donc  <strong>T=0</strong> , ce qui indique donc une  absence de significativité par le test de Student et intervalle de confiances.L'arbre de transmision est bien bien **"conforme"** donc valide. Note : parallèle avec l'échantillon "représentatif".
+
+<br>
+On peut par ailleurs réutiliser la même logique en utilisant des données
+économiques ou démographiques, en comparant la moyenen d'un échantillon
+avec la moyenne nationale en vérifiant si l'échantillon est
+représentatif.
+
+<h2 style="font-size: 24px;">2: Test avec violation de la normalité :le test du signe (Gear et valeur de référence)  </h2>
+
+Par ailleurs, on peut souligner ici la structure du test.
+Input : 
+
+  - Sélectionnons Y : Gear= nombre de vitesses d'une voiture. 
+  - fonction de détermination : la boucle if-else a comme output l'absence de respect de la normalité de Y, puis multinomialouordinal.
+  
+
+  - Sélectionnons la valeur de référence X:  **de vitesse de voiture au niveau national ** : 3,6 (conforme)
+  **de vitesse de voiture au niveau national ** : 5 (conforme)
+  
+  -**H0** (conforme): absence de différence entre la **médiane** , d'une variable Y qui ne suit pas la loi normale, comme Gear, et une valeur de référence hypothétique ; 3,6.  
+  -**H1** : absence de conformité ou de représentativité. 
+  
+<br>
+**Analyse :** 
+3,6 : La **p-value >0,05** souligne une absence de significativité de la différence de médianes entre la valeur réelle et théorique.  
+5,6 : **p-value<0,1**: l'échantillon de voitures qu'on aurait dans la base de données de MTCars ne serait alors **pas représentatif**. Sa médiane est trop éloignée de 5,6.
+
+<br>
+
+Ainsi, l'échantillon a donc bien une **"médiane" raisonnable** par rapport à la réalité :l'échantillon est jugé conforme par rapport au "choix médian" de vitesse d'une voiture au niveau national.
+
+Ainsi , l'échantillon peut être considéré comme **fiable** pour des analyses qui vont impliqués d'autres variables, notamment si la **vitesse** est une caractéristique **importante** pour les voitures. 
+
+
+```{r,echo=FALSE}
+#Pré-requis
+
+#Installer le package de template 
+library("flexdashboard")
+
+# Liste des packages à installer
+packages <- c("rstatix", "DescTools", "shiny", "shinyjs", "DT", "rintrojs")
+
+# Installer les packages qui ne sont pas encore installés
+install.packages(setdiff(packages, rownames(installed.packages())))
+
+#Packages nécessaires pour les tests statistiques
+
+library(rstatix)
+library(DescTools)
+library(stats)
+
+#Packages nécessaires afin d'exécuter de manière interactives les commandes. 
+library(shiny)
+library(shinyjs)
+library(DT)
+library(rintrojs)
+```
+
+
+```{r,echo=FALSE, paged.print=FALSE}
+app_ui <- function() {
+  shiny::fluidPage( 
+    
+    #Crée une mise en page interactive pour l'utilisateur 
+    rintrojs::introjsUI(),
+    
+    # titlepanel permet de créer le titre de l'application
+    shiny::titlePanel(shiny::tags$h3("Statistiques : l'app de  stats", windowTitle = "Statistiques : l'app des tests stats")), 
+    shiny::titlePanel(shiny::tags$h5(
+
+    )
+    ),
+    # Je charge la librairie javscript de Shiny
+    shinyjs::useShinyjs(),
+    
+    # Met en place la barre latérale qui permet de proposer de charger le Fichier
+    shiny::sidebarLayout(
+      shiny::sidebarPanel(
+        shiny::fileInput("Fichier", "Charger un fichier (csv,xslx)"),
+        
+        shiny::actionButton("launch_modal", "Importation des données"),
+        
+        # Je mets en place le menu déroulant pour choisir la varaible expliquéeY
+        rintrojs::introBox(
+          shiny::uiOutput("expliquéeX_var_dropdown"),
+          data.step = 3,
+          data.intro = "Choose the expliquéeY variable from this dropdown."
+        ),
+        
+        # Mettre le texte en-dessous 
+        rintrojs::introBox(
+          shiny::textOutput("expliquéeX_var_text"),
+          data.step = 4,
+          data.intro = "Cela est la variable expliquéeY"
+        ),
+        
+        # Menu déroulant pour choisir la variable explicativeX
+        rintrojs::introBox(
+          shiny::uiOutput("explicativeX_var_dropdown"),
+          data.step = 5,
+          data.intro = "Choisit la variable explicativeX X "
+        ),
+        rintrojs::introBox(
+          shiny::textOutput("explicativeX_var_text"), 
+          data.step = 6,
+          data.intro = "Cela permet de mettre en place la variable X  "
+        ),
+        
+        # Champ de la saisie de la moyenne hypothètique qui est utile dans certain cas (ne s'actionne que si test du Wilcoxon)  
+        rintrojs::introBox(
+          shiny::uiOutput("input_mean"),
+          data.step = 7,
+          data.intro = "Entre la moyenne ici."
+        ),
+        shiny::conditionalPanel(
+          condition = "input.statistical_test == 'Repeated measures ANOVA (paired)' || input.statistical_test == 'Multilevel Logistic Regression (paired)' || input.statistical_test == 'Friedman\\'s ANOVA II (paired)'",
+          rintrojs::introBox(
+            shiny::uiOutput("identifier_dropdown"),
+            data.step = 8,
+            data.intro = "Choisissez l'identifiant dans ce menu déroulant."
+          )
+        ),
+        
+        # Nouveau menu déroulant pour choisir le test statistique
+        rintrojs::introBox(
+          shiny::uiOutput("statistical_test_dropdown"),
+          data.step = 9,
+          data.intro = "Choisir le test statistique dans ce menu déroulant"
+        ),
+        
+        # Endroit pour afficher le résultat du test 
+        rintrojs::introBox(
+          shiny::verbatimTextOutput("test_report"),
+          data.step = 10,
+          data.intro = "C'est l'endroit pour afficher les résultats du test. "
+        )
+      ),
+      
+      # Afficher les données importées de manière interactive (maxium 12 colonnes)
+      shiny::mainPanel(
+        shiny::fluidRow(
+          shiny::column(width = 12, DT::dataTableOutput("dataTable")),
+          shiny::column(width = 12, shiny::plotOutput("expliquéeX_var_histogramme"))
+        ),#Permet d'afficher également  le graphique d'histogrammeme, qui est chargé dans la partie Server. 
+      )
+    )
+  )
+}
+
+#Partie 1 : tentons de déterminer automatiquement,après sélections de variables, le test statistique 
+#le test statistique le plus adapté (normalité). 
+
+# Afficher un tableau de données
+app_server <- function(input, output, session) {
+display_data_table <- function(data) {
+  DT::datatable(data)
+}
+
+
+# Etape 1 : déterminer le type de variable  et afficher une phrase sur l'interface (après mise à jour dans l'UI)
+#le type de la variable expliquéeY afin d'appliquer le test statistique adapté. 
+
+determine_expliquéeX_variable <- function(expliquéeX_var) {
+  # Vérifions d'abord si la variable est numérique. 
+  if (is.numeric(expliquéeX_var)) {
+    # Vérifions si elle suit une loi Normale. 
+    shapiro_test <- stats::shapiro.test(expliquéeX_var)
+
+    # Or si pvalue<0,05 du test de Shapiro, cela  montre du coup qu'on a une normalité des résidus. 
+    if (shapiro_test$p.value < 0.05) {
+      "L'hypothèse de normalité est violée"
+    } else {
+      "L'hypothèse de normalité est vérifiée"
+    }
+  } else if (is.character(expliquéeX_var)) {
+    # Classer si la variable Y est binaire, ou bien ordinal/nominal  
+    unique_values <- length(unique(expliquéeX_var))
+    if (unique_values == 2) {
+      "La variable expliquéeY sélectionnée est binaire"
+    } else if (unique_values > 2) {
+      "La variable sélectionnée Y est multinomiale"
+    } else {
+      "La variable sélectionnée Y a des données invalides"
+    }
+  } else {
+    "La variable sélectionnée n'est ni numérique ni caractère. "
+  }
+}
+
+# 2 : Déterminer et afficher le type de la variable explicativeX Y
+
+determine_explicativeX_variable <- function(explicativeX_var) {
+  # Vérifie et affiche  si la variable explicativeX X sélectionnée est numérique ou pas . 
+  if (is.numeric(explicativeX_var)) {
+    "La variable explicativeX sélectionnée est numérique."
+  } else if (is.numeric(explicativeX_var)) {
+  # Calcule le nombre d'éléments distincts afin de mieux calsser la variable. 
+    unique_values <- length(unique(explicativeX_var))
+    if (unique_values == 2) {
+      "La variable explicativeX sélectionnée est dichotomique."
+    } else if (unique_values > 2) {
+      "La variable explicativeX sélectionnée est catégorielle."
+    } else {
+      "La varaible dépendante a des données invalides"
+    }
+  } else {
+    "La variable sélectionnée n'est ni numérique , ni une suite de caractères. "
+  }
+}
+
+# Créer un graphique d'histogrammeme pour la variable dépendante
+# Le paramètre est la variable indépendante.
+
+créer_expliquéeX_variable_histogramme <- function(expliquéeX_var) {
+  if (is.numeric(expliquéeX_var)) {
+    graphics::hist(expliquéeX_var, main = "histogramme of expliquéeY Variable", xlab = "Values")
+  }
+}
+
+#2. Mise en place de la fonction qui permet de classer les variables par types
+#Elle va donc permettre de choisir le test statistique 
+
+#Choisir un test statistique qui s'adapte correctement à notre varaible dépendante et explicativeX. 
+
+SélectionTestStatistiques <- function(expliquéeX_var, explicativeX_var) {
+  # Etape 1 : Déterminer les caractéristiques de la variable dépendante X 
+  #Normalité Déterminer pour la variable numérique expliquéeY si elle suit une loi nominale ou non
+  #Type : cela permet d'avoir une base pour la suite de nos tests 
+  if (is.numeric(expliquéeX_var)) {
+    shapiro_test <- stats::shapiro.test(expliquéeX_var)
+    if (shapiro_test$p.value < 0.05) {
+      expliquéeX_var_caractéristique <- "L'hypothèse de normalité est violée"
+    } else {
+      expliquéeX_var_caractéristique <- "L'hypothèse de normalité est vérifiée"
+    }
+  } else if (is.character(expliquéeX_var)) {
+    unique_values <- length(unique(expliquéeX_var))
+    if (unique_values == 2) {
+      expliquéeX_var_caractéristique <- "binaire"
+    } else if (unique_values > 2) {
+      expliquéeX_var_caractéristique <- "multinomialouordinal"
+    }
+  } else {
+    return("La variable expliquéeY n'est pas supportée")
+  }
+  #Si multinomial : cela signifie notamment que l'on va devoir utiliser un test semi-paramétrique (ANOVA)
+  if (is.numeric(explicativeX_var)) {
+    explicativeX_var_caractéristique <- "continue"
+  } else if (is.character(explicativeX_var)) {
+    unique_explicativeX <- length(unique(explicativeX_var)) #Déterminer le nombre de valeur uniques. 
+    if (unique_explicativeX == 1) {
+      explicativeX_var_caractéristique <- "unique"
+    } else if (unique_explicativeX == 2) {
+      explicativeX_var_caractéristique <- "catégorielle"
+    } else if (unique_explicativeX > 2) {
+      explicativeX_var_caractéristique <- "catégorielle"#Permet de mettre en place potentiellement un test semi-paramétrique. 
+    } else {
+      #Si la variable est catégorique 
+      return("La varialbe indépendante n'est pas supportée")
+    }
+  }
+
+
+  # Utiliser ces caractéristiques pour choisir le test statistique. 
+  #On place dans les deux premières boucles : la condition de normalité de Y et son types 
+  #Au contraire, on place dans les secondes boucles les types de X contenu dans la variable 
+  #Tout a été chargé dans les var
+  if (expliquéeX_var_caractéristique == "L'hypothèse de normalité est violée") {
+    if (explicativeX_var_caractéristique == "continue") {
+      return("Coeff de corrélation de Spearman")
+    } else if (explicativeX_var_caractéristique == "unique") {
+      return("Test du signe")
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c(
+        "Wilcoxon test",
+        "Mann-Whitney U test 2 (non apparié)"
+      ))
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c(
+        # "Test d'ANOVA apparié",
+        "Kruskal-Wallis test 1 (explicativeX)"
+      ))
+    }
+  } else if (expliquéeX_var_caractéristique == "L'hypothèse de normalité est vérifiée") {
+    if (explicativeX_var_caractéristique == "continue") {
+      return("Coeff de corrélation de Pearson")
+    } else if (explicativeX_var_caractéristique == "unique") {
+      return("Tstudent 1 echantillon")
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c("explicativeX samples t-test (non apparié)", "T-test (test apparié)"))
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c("One-way ANOVA (unpaired)"
+               # "analyse de la variance à mesures répétées (appariée)"
+      ))
+    } #Mettons en place les tests également pour les régresions logistiques. 
+  } else if (expliquéeX_var_caractéristique == "binaire") {
+    if (explicativeX_var_caractéristique == "unique") {
+      return("Test du khi carre d'adequation")
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c("Test de McNemar (apparié)", "Chi carré test d'indépendance  avec le test de Fisher (non apparié)"))
+    #Test de McNemar : permet de vérifier si les proportions entre les deux "catégories" sont significativement différentes ou non. 
+    } else if (explicativeX_var_caractéristique == "catégorielle & unpaired") {
+      return("Test du Chi Carré d'indépendance  et test de Fischer non apparié")
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c(
+        "Cochran's Q test "
+        # "Cochran's Q test (paired)"
+      ))
+    }
+    #Le test de Cohran permet de comparer deux variables dichotomiques entre elles.
+  } else if (expliquéeX_var_caractéristique == "catégorielleouordinal") {
+    if (explicativeX_var_caractéristique == "unique") {
+      return("Chi2 R2 test et test multinomial")
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c(
+        "Chi-Square Test of indépendence and Fisher-Freeman-Halton Exact Test I (unpaired)",
+        "Mann-Whitney U test 2 (non apparié)",
+        "Bhapkar's Test",
+        "Wilcoxon test"
+      ))
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c(
+        # "régression logistique multiniveau (appariée)",
+        # "Friedman's ANOVA II (paired)",
+        "Chi-Square Test of indépendance en Fisher-Freeman-Halton Exact Test I (unpaired)",
+        "Kruskal-Wallis test 1 (explicativeX)"
+      ))
+    }
+  }
+
+  # Pas de test statistique approuvé trouvé. 
+  return("Pas de test statistique utile trouvé en lien avec la combinaison de variables X et explicative Y")
+}
+
+#Etape 4 : mette en place une fonction pour calculer la normalité 
+#Analyser uniquement la normalité d'une variable et adapter le message suivant le résultat. 
+
+catégorisationvariable<- function(variable) {
+  if (is.numeric(variable)) {
+    # Faire un test shapiro wilk pour effectuer la normalité
+    sw_test <- stats::shapiro.test(variable)
+    is_normal <- sw_test$p.value >= 0.05
+
+    # Créer un vecteur de character pour sauvegarder le résultat. 
+    var_class_info <- character(0)
+
+    if (is_normal) {
+      var_class_info <- c(var_class_info, "independante Variable Class: continue (Normally Distributed)")
+    } else {
+      var_class_info <- c(var_class_info, "independante Variable Class: continue (Not Normally Distributed)")
+      # Inclure le test de Shapiro avec une p-value
+      shapiro_result <- paste("Shapiro-Wilk Test: p-value =", format(sw_test$p.value, digits = 4))
+      var_class_info <- c(var_class_info, shapiro_result)
+    }
+
+    return(var_class_info)
+  } else {
+    # Vérifie si la variable catégorique est binaire ou pas. 
+    unique_values <- unique(variable)
+    is_binaire <- length(unique_values) == 2
+
+    if (is_binaire) {
+      var_class_info <- "explicativeX Variable Class: Categorical (binaire)"
+    } else {
+      var_class_info <- "explicativeX Variable Class: Categorical (Nominal)"
+    }
+
+    return(var_class_info)
+  }
+}
+
+
+
+# Etape 5 : exécuter le test à partir des packages.  Cette fonction va effectuer les tests statistiques à partir de la base de données donné par l'utilisateur. 
+
+#Variables qui ont les différentes données pour les variables. 
+perform_statistical_test <- function(data, input) {
+  test_name <- input$statistical_test
+  expliquéeX_var <- input$expliquéeX_var
+  explicativeX_var <- input$explicativeX_var
+  identifier_var <- input$identifier_var
+  input_mean <- input$input_mean
+
+  # Determiner la valuer de mu basé sur les sélections de l'utilisateur
+  #IL est important d'insérer une moyenne hypothétique pour certains tests , notamment ceux ne se basant que sur Y (notamment si "valeur de référence" est mise en place. 
+  mu <- if (explicativeX_var == "valeur de référence") input_mean else mean(data[[expliquéeX_var]], na.rm = TRUE)
+
+  # Exécuté les tests 
+  #On utilise trycatch qui permet notamment de mettre en place une autre fonction en cas d'erreur
+  
+  result <- tryCatch(
+    {
+      switch(test_name,
+             "Test du signe" = DescTools::SignTest(x = data[[expliquéeX_var]], mu = mu, alternative = "two.sided"),
+             "Wilcoxon test" = stats::wilcox.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data, paired = TRUE, alternative = "two.sided"),
+             "Mann-Whitney U test 2 (non apparié)" = {
+               unique_values <- unique(data[[explicativeX_var]])
+               groupee1 <- data[data[[explicativeX_var]] == unique_values[1], expliquéeX_var]
+               groupee2 <- data[data[[explicativeX_var]] == unique_values[2], expliquéeX_var]
+               stats::wilcox.test(groupee1, groupee2, paired = FALSE, alternative = "two.sided", conf.int = TRUE)
+             },
+             "Kruskal-Wallis test 1 (explicativeX)" = stats::kruskal.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data),
+             "Tstudent 1 echantillon" = stats::t.test(data[[expliquéeX_var]], mu = mu, alternative = "two.sided"),
+             "T-test (test apparié)" = stats::t.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data, paired = TRUE, alternative = "two.sided", var.equal = FALSE),
+             "explicativeX samples t-test (non apparié)" = {
+               data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+               if (length(levels(data[[explicativeX_var]])) != 2) stop("The explicativeX variable must have exactly two levels for an explicativeX t-test.")
+               part_one <- stats::t.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data, paired = FALSE, alternative = "two.sided", var.equal = FALSE)
+
+               formula <- stats::as.formula(paste(substitute(expliquéeX_var), "~", substitute(explicativeX_var))) ## formula working example!
+               part_two <- rstatix::cohens_d(data, formula,
+                                             var.equal = TRUE)
+
+               c(part_one, part_two)
+
+             },
+             # "analyse de la variance à mesures répétées (appariée)" = perform_repeated_measures_anova(data, expliquéeX_var, identifier_var, explicativeX_var),
+             "One-way ANOVA (unpaired)" = {
+               data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+               res.aov <- stats::aov(data[[expliquéeX_var]] ~ data[[explicativeX_var]])
+               summary(res.aov)
+             },
+             "CTest du khi carré d'adéquation" = {
+               table_var <- table(data[[expliquéeX_var]], useNA = "no")
+               reference_value <- if (explicativeX_var == "valeur de référence") input_mean else max(table_var) / sum(table_var)
+               stats::chisq.test(table_var, p = c(1 - reference_value, reference_value))
+             },
+             " test de McNemar (appareillé)" = { ## Error: Error in exact2x2::exact2x2(groupee_matrix, paired = TRUE, midp = TRUE): 'x' must have at least 2 rows and columns
+               unique_values <- unique(data[[explicativeX_var]])
+               groupee1 <- data[data[[explicativeX_var]] == unique_values[1], expliquéeX_var]
+               groupee2 <- data[data[[explicativeX_var]] == unique_values[2], expliquéeX_var]
+               groupee_matrix <- table(groupe1, groupe2)
+               exact2x2::exact2x2(groupe_matrix, paired = TRUE, midp = TRUE)
+             },#Test sur donnée nominale dichtomoique
+             "Test du Chi-carré d'indépendance et test exact de Fisher (non apparié)" = stats::chisq.test(data[[expliquéeX_var]], data[[explicativeX_var]]),
+             "Bhapkar's Test" = {
+               unique_values <- unique(data[[explicativeX_var]])
+               groupee1 <- data[data[[explicativeX_var]] == unique_values[1], expliquéeX_var]
+               groupee2 <- data[data[[explicativeX_var]] == unique_values[2], expliquéeX_var]
+               irr::bhapkar(cbind(groupe1, groupe2))
+             },
+             "Test des rangs signés de Wilcoxon II (appareillé" = {
+               data[[expliquéeX_var]] <- as.numeric(as.factor(data[[expliquéeX_var]]))
+               stats::wilcox.test(data[[expliquéeX_var]], paired = TRUE)
+             },
+             "Coeff de corrélation de Pearson" = stats::cor(data[[expliquéeX_var]], data[[explicativeX_var]], method = "pearson"),
+             "Coeff de corrélation de Spearman" = stats::cor(data[[expliquéeX_var]], data[[explicativeX_var]], method = "spearman"),
+             "Cochran's Q Test (paired)" = {
+             data[[expliquéeX_var]] <- as.factor(data[[expliquéeX_var]])
+             data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+             rstatix::cochran_qtest(data[[expliquéeX_var]] ~ data[[explicativeX_var]] | data[[identifier_var]], data)
+             },
+             "Test exact de Fischer" = {
+               data[[expliquéeX_var]] <- as.factor(data[[expliquéeX_var]])
+               data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+               stats::fisher.test(data[[expliquéeX_var]], data[[explicativeX_var]])
+             },
+             #Partie de tests non paramétrique  : 
+             "Test d'ANOVA apparié" = {
+              data[[expliquéeX_var]] <- as.numeric(data[[expliquéeX_var]])
+             data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+             message(identifier_var)
+             formula <- stats::as.formula(paste(substitute(expliquéeX_var), "~", substitute(explicativeX_var), "|", substitute(identifier_var)))
+             stats::friedman.test(substitute(expliquéeX_var) ~ substitute(explicativeX_var) | substitute(identifier_var), data)
+             stats::friedman.test(formula, data)
+             },
+             "Friedman's ANOVA II (paired)" = {
+             
+             
+                message(expliquéeX_var)
+             
+                message(deparse(expliquéeX_var))
+                message(substitute(expliquéeX_var))
+                message(deparse(substitute(expliquéeX_var)))
+             
+                perform_friedman_test_now(data, substitute(expliquéeX_var), substitute(explicativeX_var), substitute(identifier_var))
+                   data[[expliquéeX_var]] <- as.numeric(data[[expliquéeX_var]])
+                   data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+                 stats::friedman.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]] | data[[identifier_var]], data)
+               },
+                "régression logistique multiniveau (appariée)" = {
+                 data[[expliquéeX_var]] <- as.factor(data[[expliquéeX_var]])
+                 data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+                 message(identifier_var)
+                 lme4::glmer(data[[expliquéeX_var]] ~ data[[explicativeX_var]] + (1 | data[[identifier_var]]), data, family = binomial)
+              },
+             stop(paste0("No appropriate statistical test found for the given combination of expliquéeY and explicativeX variables: ", expliquéeX_var, " and ", explicativeX_var))
+      )
+    }, #S'il y a erreur , on va alors afficher le Explication code suivant , qui va donc permettre de spécifier le type d'erreur : 
+    error = function(e) {
+      stop(paste0("Error: ", e))#e : permet de capter le message d'erreur 
+      NULL
+    }
+  )
+
+  return(result)
+}
+
+#Créer le serveur 
+
+
+  shiny::observeEvent(input$launch_modal, {
+    datamods::import_modal(
+      id = "myid",
+      from = c("env", "file", "copypaste", "googlesheets", "url"),
+      title = "Import data to be used in application"
+    )
+  })
+  
+  imported <- datamods::import_server("myid", return_class = "data.frame")
+  
+  sdata <- shiny::reactive({ #Reactive permet de mettre à jour les données ,notamment la base de données. 
+    if (is.null(imported$data())) {#S'il n'y a pas de data set chargé, il charge "mtcars" qui est une base de donnée de R classique. 
+      datasets::mtcars
+    } else {
+      shiny::req(imported$data()) #Si importé=pas 0, on utilise Req permet de vérifier l'absence de données manquantes en plus
+      if (nrow(imported$data()) == 0) {  #si après avoir enlever les NA, la base de donnée =0
+        datasets::mtcars
+      } else {
+        imported$data() 
+      }
+    }
+  })
+  
+  
+  
+  # Afficher la base de données sous le format de la Datatable. 
+  output$dataTable <- DT::renderDataTable({
+    shiny::req(sdata())
+    DT::datatable(sdata())
+  })
+  
+  # Créer le menu  déroulant pour la variable expliquéeY variable
+  output$expliquéeX_var_dropdown <- shiny::renderUI({
+    shiny::req(sdata())
+    shinyWidgets::pickerInput("expliquéeX_var", "Choisir la variable expliquée X", choices = colnames(sdata()))
+  })
+  
+  # Menu déroulant pour la variable explicative X . 
+  output$explicativeX_var_dropdown <- shiny::renderUI({
+    shiny::req(sdata())
+    choices <- c("valeur de référence", colnames(sdata()))
+    shinyWidgets::pickerInput(
+      "explicativeX_var",
+      "Choisir la variable explicativeX ou de référence",
+      choices = choices
+    )
+  })
+  
+  output$input_mean <- shiny::renderUI({
+    shiny::req(sdata())
+    shiny::req(input$expliquéeX_var)
+    
+    ## Récupérer les données des entrées utilisateur.
+    data <- sdata()
+    
+    ## Calculer la moyenne des données 
+    if (is.numeric(data[[input$expliquéeX_var]])) {
+      reference_value <- mean(data[[input$expliquéeX_var]], na.rm = TRUE)
+    } else {
+      reference_value <- NULL
+    }
+    
+    ## Seule montrer l'input mean si la valeur de référence est actionnée. 
+    #Cela permet d'écrire la valeur de référence qui va permettre notamment de comparer dans certain tests notamment à 1 valeur comme le test du Signe. 
+    if (input$explicativeX_var == "valeur de référence") {
+      shiny::numericInput("input_mean", "Set valeur de référence", value = reference_value)
+    }
+  })
+  
+  # Menu déroulant dynamique qui permet notamment de sélectionner une variable identifiante ID, en fonction des variables explicatives. 
+  #cela est surtout utile pour les groupes appareillés ou non (ANOVA)
+  #Et cela permet donc de sélectionner les identifants en "doublons".  
+  output$identifier_dropdown <- shiny::renderUI({
+    shiny::req(sdata())
+    shinyWidgets::pickerInput("identifier_var", "Choisir la variable identifiée", choices = colnames(sdata()))
+  })
+  
+  # Menu déroulant des variables expliquéeYs
+  output$expliquéeX_var_text <- shiny::renderText({
+    shiny::req(input$expliquéeX_var)
+    determine_expliquéeX_variable(sdata()[, input$expliquéeX_var])
+  })
+  
+  # Texte additionnel pour la variable explicativeX. 
+  output$explicativeX_var_text <- shiny::renderText({
+    shiny::req(input$explicativeX_var)
+    
+    if (input$explicativeX_var %in% colnames(sdata())) {
+      determine_explicativeX_variable(sdata()[, input$explicativeX_var])
+    }
+  })
+  
+  # Nouveau menu déroulant pour sélectionner le test statistique. 
+  output$statistical_test_dropdown <- shiny::renderUI({
+    shiny::req(input$expliquéeX_var, input$explicativeX_var)
+    
+    if (input$explicativeX_var == "valeur de référence") {
+      explicativeX_var <- "valeur de référence"
+    } else {
+      explicativeX_var <- sdata()[, input$explicativeX_var]
+    }
+    test <- SélectionTestStatistiques(sdata()[, input$expliquéeX_var], explicativeX_var)
+    test_options <- c(test)
+    shinyWidgets::pickerInput("statistical_test", "Choose statistical test", choices = test_options)
+  })
+  
+  # Afficher l'histogramme de la variable Y sélectionnée.
+output$expliquéeX_var_histogramme <- shiny::renderPlot({
+    shiny::req(sdata(), input$expliquéeX_var)
+    créer_expliquéeX_variable_histogramme(sdata()[, input$expliquéeX_var])
+})
+
+  # 4.Exporter les tests statistiques
+output$test_report <- shiny::renderPrint({
+  result <- perform_statistical_test(sdata(), input)
+  if (!is.null(result)) result
+})
+}
+
+shinyApp(ui=app_ui,server=app_server)
+```
+
+
+Tests de 2 variables{data-navmenu="Test"}
+============
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse de Corrélation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        h2 {
+            color: #34495e;
+        }
+        .note {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #2ecc71;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tests statistiques à 2 variables </h1>
+
+    <h2>1. Variables non paramétriques (normalité violée) : hp et drat</h2>
+    <p>Les variables hp (puissance) et drat (rapport d'entraînement) présentent des caractéristiques non paramétriques. La corrélation entre ces deux variables est évaluée à l'aide du test de Spearman.
+    
+    Ce test est idéal lorsque les données ne suivent pas une distribution normale ou présentent une relation monotone, dont on ne peut alors évaluer le degré, uniquement si leur différence est significative.</p>
+
+    <div class="note">
+        Test utilisé : Spearman  <br>
+        Interprétation : Une p-valeur inférieure à 0,05 indique une corrélation significative entre les variables. 
+    </div>
+
+    <p>Un coefficient de corrélation positif signifie que l'augmentation de la puissance du moteur (hp) est liée à une augmentation du rapport d'entraînement (drat).</p>
+
+    <h2> 2. Variables Paramétriques : wt et vs</h2>
+    <p>Les variables wt (poids) et vs (configuration moteur) sont considérées comme paramétriques. La relation entre elles est analysée à l'aide du test de Pearson, qui suppose une relation linéaire et des données normalement distribuées.</p>
+
+    <div class="note">
+        Test utilisé : Pearson <br>
+        Interprétation : Une p-valeur inférieure à 0,05 confirme une corrélation significative entre les deux variables.
+    </div>
+
+    <p>Un coefficient positif indique que le poids du véhicule (wt) pourrait être directement lié à certaines caractéristiques spécifiques de la configuration moteur (vs).</p>
+</body>
+</html>
+
+```{r}
+
+shinyApp(ui=app_ui,server=app_server)
+```
+
+
+3.Test du modèle le plus performant {data-navmenu="Test"}
+============================ 
+
+Dans cette rubrique, afin d'améliorer la qualité des tests statistiques au contexte et caractéristiques, on propose notamment de proposer. 
+ <br>
+1)De sélectionner à nouveau une base de données, qui peut-être mtcars en appuyant sur le bouton dédié <br>
+2)De sélectionner à nouveau Y
+3)D'exclure  une ou plusieurs  variable X en décochant si des variables apparaisssent par le raisonnement inutiles. 
+4)Le résultat de la régression mêlant l'ensemble des variables explicatives apparaît alors dans cette rubrique. 
+5) Ensuite, si on souhaite avoir une idée de quelle sélection de variable **"automatique"** ,comme le ferait la sélection la plus utilisée connue, **l'elastic net**, on peut alors voir par exemple en choississant la variable MPG, qu'in fine le R2 est de 0,70 et le Fischer de 0,29
+6)Ensuite, on peut remarquer des R2 beaucoup plus élevés de certains modèles ; grâce à l'Mettre un **Best Subvet**qui permet donc de choisir le meilleur R2. 
+Par exemple, le tableau ici présent permet de sélectionner un des meilleurs modèles en 8eme ligne, avec un R2 de 0,88. Par exemple, je remarque une valeur élevée à la 8eme ligne, et 8eme colonne. 
+
+(Intercept)   cyl  disp    hp  drat   wt  qsec    vs    am  gear  carb
+TRUE         FALSE  TRUE  TRUE  TRUE TRUE  TRUE FALSE  TRUE  TRUE  TRUE
+En conséquence, on peut savoir que le modèle le plus explicatif comportera bien 
+6)
+Pour simplifier, on peut donc expliquer mpg, qui est la consommation par mille d'essences, par ces variables : poids du véhicule(wt), rapport de pont arrière(drat), temps sur un quart de mile (qsec),vs(type de moteur)....
+
+```{r setup }
+#
+
+
+# Chargement des librairies nécessaires
+library(shiny)
+library(dplyr)
+library(car)       
+library(broom)  
+library(stringr)  
+library(leaps)    #Sélection logistique en régression multiple. 
+library(bestglm)   # pour Sélection exhaustive 
+library(glmnet)    # pour Elastic Net / Lasso / Ridge
+
+ui <- fluidPage(
+  
+  titlePanel("Application Shiny : Comparaison de modèles + Sélection exhaustive + Elastic Net"),
+  
+  tabsetPanel(
+    
+    # Mettre un 1 : Introduction
+    tabPanel("Introduction",
+      sidebarLayout(
+        sidebarPanel(
+          h4("1) Choisir votre jeu de données"),
+          actionButton("useMtcars", "Utiliser mtcars"),
+          br(), br(),
+          fileInput("fileData", "Ou importer un fichier CSV",
+                    accept = c(".csv","text/csv","text/comma-separated-values,text/plain")),
+          
+          hr(),
+          h4("2) Choisir la variable Y"),
+          uiOutput("varY_ui_intro"),
+          
+          hr(),
+          h4("3) Sélection de variables X (potentielles)"),
+          uiOutput("varX_ui_intro")
+        ),
+        
+        mainPanel(
+          h3("Bienvenue dans l'application Shiny !"),
+          p("Dans cet Mettre un, vous pouvez :"),
+          tags$ul(
+            tags$li("Utiliser directement le dataset mtcars (intégré dans R),"),
+            tags$li("ou importer votre propre fichier CSV."),
+            tags$li("Sélectionner la variable Y, et cocher/décocher des variables X.")
+          ),
+          p("Les choix ci-dessus seront repris dans les autres Mettre uns.")
+        )
+      )
+    ),
+    
+    # Mettre un 2 : Résultats automatiques
+    tabPanel("Résultats automatiques",
+      sidebarLayout(
+        sidebarPanel(
+          actionButton("runModels", "Lancer les modèles automatiques"),
+          br(), br(),
+          p("Cliquez pour afficher le VIF (si Y numérique) et les résumés des modèles.")
+        ),
+        mainPanel(
+          verbatimTextOutput("vifResult"),
+          verbatimTextOutput("modelComparison")
+        )
+      )
+    ),
+    
+    # Mettre un 3 : Modèle personnalisé
+    tabPanel("Modèle personnalisé",
+      sidebarLayout(
+        sidebarPanel(
+          uiOutput("varX_custom_ui"),
+          actionButton("runCustomModel", "Lancer le modèle personnalisé")
+        ),
+        mainPanel(
+          verbatimTextOutput("customModelSummary")
+        )
+      )
+    ),
+    
+    # Mettre un 4 : Sélection exhaustive
+    tabPanel("Sélection exhaustive",
+      sidebarLayout(
+        sidebarPanel(
+          actionButton("runBestSubset", "Calculer Sélection exhaustive"),
+          br(), br(),
+          p("Cliquez pour tester tous les sous-modèles (exhaustif). Aucune sélection finale imposée.")
+        ),
+        mainPanel(
+          verbatimTextOutput("bestSubsetOutput")
+        )
+      )
+    ),
+    
+    # Mettre un 5 : Elastic Net
+    tabPanel("Elastic Net",
+      sidebarLayout(
+        sidebarPanel(
+          actionButton("runElasticNet", "Lancer Elastic Net"),
+          br(), br(),
+          p("Cliquez pour effectuer une sélection par Elastic Net (alpha=0.5)"),
+          p("Avec partition : 70% train / 30% test")
+        ),
+        mainPanel(
+          verbatimTextOutput("elasticNetOutput")
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  #  Stocke un data.frame réactif, par défaut = mtcars
+  df <- reactiveVal(mtcars)
+  
+  # Met à jour les inputs quand df() change
+  observeEvent(df(), {
+    req(df())
+    cols <- names(df())
+    if(length(cols) == 0) return(NULL)
+    
+    updateSelectInput(session, "varY_intro",
+      label    = "Variable dépendante (Y):",
+      choices  = cols,
+      selected = cols[1])
+    
+    updateCheckboxGroupInput(session, "varX_intro",
+      label    = "Variables explicatives (X) potentielles :",
+      choices  = cols,
+      selected = cols[-1])
+    
+    updateCheckboxGroupInput(session, "varX_custom",
+      label    = "Variables explicatives (X) personnalisées :",
+      choices  = cols,
+      selected = character(0))
+  })
+  
+  #  UI dynamique pour l'Mettre un Intro
+  output$varY_ui_intro <- renderUI({
+    req(df())
+    selectInput("varY_intro", "Variable dépendante (Y):",
+                choices = names(df()),
+                selected = names(df())[1])
+  })
+  
+  output$varX_ui_intro <- renderUI({
+    req(df())
+    checkboxGroupInput("varX_intro",
+      "Variables explicatives (X) potentielles :",
+      choices  = names(df()),
+      selected = names(df())[-1])
+  })
+  
+  # UI dynamique pour le modèle personnalisé
+  output$varX_custom_ui <- renderUI({
+    req(df())
+    checkboxGroupInput("varX_custom",
+      "Choisir manuellement vos variables X :",
+      choices = names(df()),
+      selected = character(0))
+  })
+  
+  # Récupère Y et X (de l'intro) pour la suite
+  reactiveY <- reactive({
+    req(input$varY_intro)
+    input$varY_intro
+  })
+  
+  reactiveX <- reactive({
+    req(input$varX_intro)
+    input$varX_intro
+  })
+  
+  # 6) Bouton "Utiliser mtcars"
+  observeEvent(input$useMtcars, {
+    df(mtcars)
+    showNotification("Vous utilisez maintenant 'mtcars'.")
+  })
+  
+  # 7) Import d'un fichier CSV
+  observeEvent(input$fileData, {
+    req(input$fileData)
+    file_in <- input$fileData
+    
+    newdata <- tryCatch({
+      read.csv(file_in$datapath, header = TRUE, sep = ",")
+    }, error = function(e) {
+      showNotification("Erreur lors de la lecture du fichier CSV.", type = "error")
+      return(NULL)
+    })
+    
+    if(!is.null(newdata)) {
+      df(newdata)
+      showNotification("Nouveau fichier CSV importé avec succès.")
+    }
+  })
+  
+  #  Calcule le VIF (si Y numérique)
+  vifResults <- reactive({
+    req(reactiveY(), reactiveX())
+    y_name  <- reactiveY()
+    x_names <- reactiveX()
+    
+    if(!is.numeric(df()[[y_name]])) {
+      return(NULL)
+    }
+    data_sub <- df()[, c(y_name, x_names), drop=FALSE]
+    
+    fml <- as.formula(
+      paste(y_name, "~", paste(x_names, collapse = " + "))
+    )
+    mod_temp <- lm(fml, data = data_sub)
+    car::vif(mod_temp)
+  })
+  
+  # 9) Mettre un "Résultats automatiques"
+  observeEvent(input$runModels, {
+    output$vifResult <- renderPrint({
+      vals <- vifResults()
+      if(is.null(vals)) {
+        cat("VIF non calculable : Y n'est pas numérique ou pas de X.\n")
+      } else {
+        cat("Valeurs du VIF pour chaque variable explicative :\n")
+        print(vals)
+        cat("\nVariables avec un VIF > 4 :\n")
+        print(names(vals[vals > 4]))
+      }
+    })
+    
+    output$modelComparison <- renderPrint({
+      y_name  <- reactiveY()
+      x_names <- reactiveX()
+      data_sub <- df()[, c(y_name, x_names), drop=FALSE]
+      y_vals   <- df()[[y_name]]
+      
+      is_binary <- is.factor(y_vals) || is.character(y_vals)
+      
+      # Régression linéaire si Y numérique
+      if(is.numeric(y_vals)) {
+        formula_lm <- as.formula(
+          paste(y_name, "~", paste(x_names, collapse = "+"))
+        )
+        model_lm <- lm(formula_lm, data = data_sub)
+        
+        summary_lm <- summary(model_lm)
+        r2_lm      <- summary_lm$r.squared
+        fstat_lm   <- summary_lm$fstatistic[1]
+        aic_lm     <- AIC(model_lm)
+        bic_lm     <- BIC(model_lm)
+        
+        cat("**Régression linéaire multiple**\n")
+        cat("R2       :", r2_lm, "\n")
+        cat("F-Stat   :", fstat_lm, "\n")
+        cat("AIC      :", aic_lm, "\n")
+        cat("BIC      :", bic_lm, "\n\n")
+      } else {
+        cat("**Régression linéaire multiple** non applicable (Y n'est pas numérique).\n\n")
+      }
+      
+      # Régression logistique si Y binaire
+      if(is_binary) {
+        y_factor <- factor(y_vals)
+        if(length(levels(y_factor)) == 2) {
+          formula_glm <- as.formula(
+            paste(y_name, "~", paste(x_names, collapse = "+"))
+          )
+          model_glm <- glm(formula_glm, data = data_sub, family = binomial)
+          
+          null_glm   <- glm(as.formula(paste(y_name, "~ 1")), 
+                            data = data_sub, family = binomial)
+          loglik_full <- as.numeric(logLik(model_glm))
+          loglik_null <- as.numeric(logLik(null_glm))
+          pseudo_r2   <- 1 - (loglik_full / loglik_null)
+          
+          aic_glm     <- AIC(model_glm)
+          bic_glm     <- BIC(model_glm)
+          
+          cat("**Régression logistique**\n")
+          cat("Pseudo R2 (McFadden) :", pseudo_r2, "\n")
+          cat("AIC :", aic_glm, "\n")
+          cat("BIC :", bic_glm, "\n\n")
+        } else {
+          cat("**Régression logistique** non applicable : Y n'a pas 2 niveaux.\n\n")
+        }
+      } else {
+        cat("**Régression logistique** non applicable : Y n'est pas binaire.\n\n")
+      }
+    })
+  })
+  
+  #  Mettre un "Modèle personnalisé"
+  observeEvent(input$runCustomModel, {
+    output$customModelSummary <- renderPrint({
+      req(input$varX_custom, df())
+      y_name <- reactiveY()
+      x_sel  <- input$varX_custom
+      
+      data_sub <- df()[, c(y_name, x_sel), drop=FALSE]
+      y_vals   <- df()[[y_name]]
+      
+      if(is.numeric(y_vals)) {
+        # LM
+        fml <- as.formula(
+          paste(y_name, "~", paste(x_sel, collapse = "+"))
+        )
+        model_custom <- lm(fml, data = data_sub)
+        cat("**Modèle linéaire personnalisé :**\n")
+        print(summary(model_custom))
+        cat("AIC :", AIC(model_custom), "\n")
+        cat("BIC :", BIC(model_custom), "\n")
+      } else {
+        # GLM binomial si Y binaire
+        y_factor <- factor(y_vals)
+        if(length(levels(y_factor)) == 2) {
+          fml <- as.formula(
+            paste(y_name, "~", paste(x_sel, collapse = "+"))
+          )
+          model_custom <- glm(fml, data = data_sub, family = binomial)
+          cat("**Modèle logistique personnalisé :**\n")
+          print(summary(model_custom))
+          cat("\nAIC :", AIC(model_custom), "\n")
+          cat("BIC :", BIC(model_custom), "\n")
+        } else {
+          cat("Impossible de faire un modèle logistique : Y n'a pas 2 niveaux.\n")
+        }
+      }
+    })
+  })
+  
+  # Mettre un "Sélection exhaustive"
+  observeEvent(input$runBestSubset, {
+    output$bestSubsetOutput <- renderPrint({
+      req(reactiveY(), reactiveX(), df())
+      
+      y_name  <- reactiveY()
+      x_names <- reactiveX()
+      data_sub <- df()[, c(y_name, x_names), drop=FALSE]
+      y_vals   <- df()[[y_name]]
+      
+      # regsubsets() si Y numérique
+      if(is.numeric(y_vals)) {
+        form_full <- as.formula(
+          paste(y_name, "~", paste(x_names, collapse = "+"))
+        )
+        
+        best_sub <- regsubsets(
+          form_full,
+          data  = data_sub,
+          nbest = 1,
+          nvmax = length(x_names),
+          method= "exhaustive"
+        )
+        
+        best_sub_sum <- summary(best_sub)
+        
+        cat("=== Sélection exhaustive (Régression linéaire) ===\n")
+        cat("\n- BIC pour chaque taille de modèle :\n")
+        print(best_sub_sum$bic)
+        
+        cat("\n- R2 pour chaque taille de modèle :\n")
+        print(best_sub_sum$rsq)
+        
+        cat("\n- R2 ajusté pour chaque taille de modèle :\n")
+        print(best_sub_sum$adjr2)
+        
+        cat("\n- Tableau which (quelles variables incluses) :\n")
+        print(best_sub_sum$which)
+        
+        cat("\n(Nous n'imposons pas la sélection, nous affichons simplement.)\n")
+        
+      } else {
+        # bestglm() si Y binaire
+        y_factor <- factor(y_vals)
+        if(length(levels(y_factor)) == 2) {
+          Xy <- data.frame(Y = y_factor, data_sub[, x_names, drop=FALSE])
+          
+          best_logit <- bestglm(
+            Xy     = Xy,
+            family = binomial,
+            IC     = "AIC",
+            method = "exhaustive"
+          )
+          
+          cat("=== Sélection exhaustive (Régression logistique) ===\n\n")
+          cat("Tableau récapitulatif de tous les modèles testés :\n")
+          print(best_logit$Subsets)
+          
+          cat("\nModèle \"meilleur\" d'après AIC :\n")
+          print(summary(best_logit$BestModel))
+          
+          cat("\n(Nous n'imposons pas la sélection, nous affichons simplement.)\n")
+          
+        } else {
+          cat("Y n'est pas binaire => Sélection exhaustive logistique non applicable.\n")
+        }
+      }
+    })
+  })
+  
+  # Mettre un "Elastic Net" : avec partition train=70%, test=30%, R2adj et F-stat si Y est numérique
+  observeEvent(input$runElasticNet, {
+    output$elasticNetOutput <- renderPrint({
+      req(reactiveY(), reactiveX(), df())
+      
+      y_name  <- reactiveY()
+      x_names <- reactiveX()
+      data_sub <- df()[, c(y_name, x_names), drop=FALSE]
+      y_vals   <- df()[[y_name]]
+      
+      is_binary <- is.factor(y_vals) || is.character(y_vals)
+      
+      # CAS 1 : Y numérique => régression
+      if(is.numeric(y_vals)) {
+        
+        set.seed(123)
+        n <- nrow(data_sub)
+        train_index <- sample(seq_len(n), size = 0.7 * n)  # 70% pour train
+        
+        data_train <- data_sub[train_index, , drop=FALSE]
+        data_test  <- data_sub[-train_index, , drop=FALSE]
+        
+        # Prépare matrice X + Y sur TRAIN
+        form_full <- as.formula(
+          paste(y_name, "~", paste(x_names, collapse = "+"))
+        )
+        x_mat_train <- model.matrix(form_full, data_train)[, -1]
+        y_train     <- data_train[[y_name]]
+        
+        # Entraîne Elastic Net (alpha=0.5) en "gaussian"
+        cvfit <- cv.glmnet(x_mat_train, y_train, alpha=0.5, family="gaussian")
+        
+        cat("=== Elastic Net (Y numérique) ===\n\n")
+        cat("Lambda min :", cvfit$lambda.min, "\n")
+        cat("Lambda 1se :", cvfit$lambda.1se, "\n\n")
+        
+        # Coeffs à lambda.min
+        coefs <- coef(cvfit, s="lambda.min")
+        cat("Coefficients (lambda.min) :\n")
+        print(coefs)
+        
+        # Prédiction sur TEST
+        x_mat_test <- model.matrix(form_full, data_test)[, -1]
+        y_test     <- data_test[[y_name]]
+        
+        y_pred     <- predict(cvfit, newx=x_mat_test, s="lambda.min")
+        
+        # Calcul de R2, R2 ajusté et F-stat sur TEST
+        SSE <- sum((y_test - y_pred)^2)
+        SST <- sum((y_test - mean(y_test))^2)
+        R2  <- 1 - SSE/SST
+        
+        n_test <- length(y_test)
+        # Nombre de coeffs non nuls (hors intercept)
+        nb_nonzero <- sum(coefs != 0) - 1
+        if(nb_nonzero < 1) nb_nonzero <- 1
+        
+        # R2 ajusté
+        R2_adj <- 1 - (1 - R2) * ((n_test - 1)/(n_test - nb_nonzero - 1))
+        
+        # F-stat approximatif
+        num   <- R2 / nb_nonzero
+        den   <- (1 - R2) / (n_test - nb_nonzero - 1)
+        F_stat <- num/den
+        
+        cat("\nSur le set de test (30% des données) :\n")
+        cat("R2          :", round(R2, 4), "\n")
+        cat("R2 ajusté   :", round(R2_adj, 4), "\n")
+        cat("F-statistic :", round(F_stat, 4), "\n")
+        
+      # CAS 2 : Y binaire => logistic (pas de R2adj ni F-stat)
+      } else if(is_binary) {
+        y_factor <- factor(y_vals)
+        if(length(levels(y_factor)) == 2) {
+          
+          cat("=== Elastic Net (Y binaire) ===\n")
+          cat("(Pas de R2 ajusté ni F-stat pour la logistique.)\n\n")
+          
+          set.seed(123)
+          n <- nrow(data_sub)
+          train_index <- sample(seq_len(n), size = 0.7*n)
+          
+          data_train <- data_sub[train_index, , drop=FALSE]
+          data_test  <- data_sub[-train_index, , drop=FALSE]
+          
+          form_full <- as.formula(
+            paste(y_name, "~", paste(x_names, collapse = "+"))
+          )
+          x_mat_train <- model.matrix(form_full, data_train)[, -1]
+          y_train     <- factor(data_train[[y_name]])
+          
+          cvfit <- cv.glmnet(x_mat_train, y_train, alpha=0.5, family="binomial")
+          
+          cat("Lambda min :", cvfit$lambda.min, "\n")
+          cat("Lambda 1se :", cvfit$lambda.1se, "\n\n")
+          
+          coefs <- coef(cvfit, s="lambda.min")
+          cat("Coefficients (lambda.min) :\n")
+          print(coefs)
+          
+          cat("\nPour la logistique, vous pouvez calculer AUC, accuracy, etc.\n")
+          
+        } else {
+          cat("Y n'a pas exactement 2 modalités => logistique non applicable.\n")
+        }
+        
+      } else {
+        cat("Y n'est pas numérique ni binaire => Elastic Net non applicable.\n")
+      }
+    })
+  })
+}
+
+# Lancement de l'application
+shinyApp(ui = ui, server = server)
+
+
+```
+
+
+
+1.PartieUITeststatistiques{data-navmenu="Explication code "}
+============================ 
+
+<h2 style="font-size: 24px;">
+
+Deux fonctions nécessaires afin de fonction l'UI et le serveur
+</h2>
+<br>
+<br>
+<br>
+<br>
+La 1ere partie est l'interface UI , ou l'interface utilisateur, qui permet de stocker les choix par défaut de l'utilisateur. En effet , l'utilisateur sélectionne des variables via son menu déroulant. 
+
+La deuxième partie de l'application Shiny, est le **back-end**, càdire qu'il s'agit d'une partie qui est conçue pour accueillir tout les **calculs de tests statistiques**, autant que la génération des résultats, comme la génération de graphiques. Cette partie est particulièrement décrite dans le fichier R. 
+En effet, notamment, la **partie UI** permet de mettre en place **l'interface graphique**, et par là d'obtenir le **choix des paramètres** de l'utilisateur. 
+
+
+
+La fonction **shiny::fluidPage()** crée une mise en page fluide pour une
+application Shiny, càdire que les sorties de l'application vont
+s'afficher avec une mise en page adaptée et **organisée** pour les utilisateurs.
+
+
+<pre><code>
+app_ui <- function() {
+  shiny::fluidPage( 
+    #Crée une mise en page interactive pour l'utilisateur 
+    rintrojs::introjsUI(),
+    # titlepanel permet de créer le titre de l'application
+    shiny::titlePanel(shiny::tags$h3("Statistiques : l'app de  stats", windowTitle = "Statistiques : l'app des tests stats")), 
+    shiny::titlePanel(shiny::tags$h5(
+</pre></code>
+
+
+<h2 style="font-size: 24px;">2.Créer la séparation graphique des  Inputs (barre latérale)/Résultats (panneau
+principal)</h2>
+
+Le titre est d'emblée mis en place grâce à Titlepanel.
+
+SidebarLayout crée une mise en page en deux sections avec :
+
+- **1. SidebarPanel :** 
+  - Permet de créer la sélection des variables avec `input`.
+
+- **2. MainPanel :** 
+  - Permet de mettre en place les sorties.
+
+
+<pre><Explication code>
+    shiny::sidebarLayout(
+      shiny::sidebarPanel(
+        shiny::fileInput("file", "Upload a file"),
+        shiny::actionButton("launch_modal", "Importation des données"),
+</Explication code></pre>
+
+<p>
+  Par exemple, dans ce <strong>SidebarPanel</strong>, on va pouvoir mettre en place le **bouton d'importation** qui permet de charger la base de données.
+</p>
+<p>
+  De plus, dans ce menu déroulant**d'introbox** de Rshinyjs, on va pouvoir ajouter une <strong>Introbox</strong>, qui nous permet de **sélectionner nos variables**.
+  Elle permet  théoriquement de créer des explications interactives à côté des commandes, mais ici seule l'introduction des variables a été implémentée.
+</p>
+
+<pre><Explication code>
+# Je mets en place le menu déroulant pour choisir la varaible expliquéeY
+        rintrojs::introBox(
+          shiny::uiOutput("expliquéeX_var_dropdown"),
+          data.step = 3,
+          data.intro = "Choose the expliquéeY variable from this dropdown."
+        )
+</Explication code></pre>
+
+Par ailleurs, chacun de ces boutons a comme argument la variable qui
+permettra par la suite au **serveur de lancer les fonctions de catégorisation**. 
+
+<h2 style="font-size: 24px;">
+
+4.Afficher la base de données et le graphique
+
+</h2>
+<p>
+  Cette fonction <strong>mainPanel</strong> définit la zone principale de l'interface utilisateur de l'application Shiny, où les résultats et les visualisations seront affichés.
+</p>
+<p>
+  Tandis que <strong>fluidRow</strong> permet une adaptation automatique des résultats à la page, on a notamment <strong>plotOutput</strong> et <strong>dataTableOutput</strong> qui vont permettre notamment d'**afficher un graphique** et une **base de données**.
+</p>
+
+<pre><Explication code>
+Afficher les données importées de manière interactive (maxium 12 colonnes)
+      shiny::mainPanel(
+        shiny::fluidRow(
+          shiny::column(width = 12, DT::dataTableOutput("dataTable")),
+          shiny::column(width = 12, shiny::plotOutput("expliquéeX_var_histogramme"))
+        ),#Permet d'afficher également  le graphique d'histogrammeme, qui est chargé dans la partie Server. 
+      )
+    )
+  )
+}
+
+
+
+# 2. Serveur {data-navmenu="Explication code"}
+
+<br>
+<br>
+<br>
+La fonction app_Server est constituée essentiellement des applications de **catégorisations** , de test mais également d'implémentation, en gérant la gestion de **base** de données de l'UI,**à mettre à jour**. 
+
+Elle permet comme indiqué en introduction de se concentrer sur les
+**calculs complexes** ; et donc d'"implémenter" les fonctions de la variable
+UI.
+
+<h2 style="font-size: 24px;"> 1.  Catégorisations des variables </h2>
+
+Cette fonction prend un jeu de données en entrée et le transforme en un
+**tableau réactif(mis à jour)** grâce à DT::datatable, determine_expliquéeX_variable
+:
+
+Elle évalue la variable expliquéeY pour déterminer **son type** (numérique
+ou catégorique). <br>
+- Elle effectue un test de normalité de
+Shapiro-Wilk et indique si l'hypothèse de **normalité** est vérifiée ou
+violée. <br>
+- Pour les variables catégoriques/caractères , elle identifie si
+elles sont **binaires ou multinomiales**.<br>
+- On peut souligner notamment que le type **"caractère"** doit être présent pour que les boucles fonctionnent.
+
+Cette fonction utilise également la variable explicativeX **choisie par l'utilisateur grâce à l'input de l'UI** en vérifiant si elle est **numérique. Si elle n'est pas  numérique, elle détermine si elle est **dichotomique ou catégorielle** en fonction du nombre de valeurs uniques,
+fournissant ainsi des informations sur le type de variable sélectionnée.
+
+<br>
+Ainsi, cette fonction permet d'afficher **uniquement**des **messages liées aux types**.
+Toutefois, une deuxième fonction est mise en place par la suite afin de
+charger dans un vecteur de caractéristique le type de variable.
+
+<br>
+Cette caractérisation est la base, in fine, de la bonne adéquation de
+nos tests statistiques aux variables concernées. 
+
+
+
+
+## 2. tentons de déterminer automatiquement,après sélections de variables, le type.  
+
+<pre><Explication code>
+# Afficher un tableau de données
+app_server <- function(input, output, session) {
+display_data_table <- function(data) {
+  DT::datatable(data)
+}
+</pre></Explication code>
+
+<h2 style="font-size: 24px;">**Etape 2** : mise en place boucles if-else avec 
+**determine_expliquéeX_variable ** qui permet d'afficher du texte sur la nature de la **variable**.</h2>
+
+
+<Explication code><pre>
+determine_expliquéeX_variable <- function(expliquéeX_var) {
+  # Vérifions d'abord si la variable est numérique. 
+  if (is.numeric(expliquéeX_var)) {
+    # Vérifions si elle suit une loi Normale. 
+    shapiro_test <- stats::shapiro.test(expliquéeX_var)
+
+    # Or si pvalue<0,05 du test de Shapiro, cela  montre du coup qu'on a une normalité des résidus. 
+    if (shapiro_test$p.value < 0.05) {
+      "L'hypothèse de normalité est violée"
+    } else {
+      "L'hypothèse de normalité est vérifiée"
+    }
+  } else if (is.character(expliquéeX_var)) {
+    # Classer si la variable Y est binaire, ou bien ordinal/nominal  
+    unique_values <- length(unique(expliquéeX_var))
+    if (unique_values == 2) {
+      "La variable expliquéeY sélectionnée est binaire"
+    } else if (unique_values > 2) {
+      "La variable sélectionnée Y est multinomiale"
+    } else {
+      "La variable sélectionnée Y a des données invalides"
+    }
+  } else {
+    "La variable sélectionnée n'est ni numérique ni caractère. "
+  }
+}
+</Explication code></pre>
+
+Dans un second temps, on va également déterminer et afficher le type de
+la variable explicativeX . Pour l'instant, cela permet surtout
+d'afficher le **type** de catégorie **explicative X** et surtout c'est celui là, qui va du coup permettre d'afficher le message vu.
+
+
+
+<h2 style="font-size: 24px;">**Etape 3** : mise en place boucles if-else avec 
+**determine_expliquéeX_variable ** qui permet de **catégoriser** la variable **.</h2>
+
+Une seconde fonction va par conséquent être effectué par la suite afin
+de stocker le résultat, dans un vecteur, permettant une catégorisation
+plus courte et plus simple à utiliser.
+
+On fait de même une boucle if-else, afin de déterminer le type de
+variable, tout en stockant **le résultat dans un vecteur**.
+
+<pre><Explication code>
+determine_explicativeX_variable <- function(explicativeX_var) {
+  # Vérifie et affiche  si la variable explicativeX X sélectionnée est numérique ou pas . 
+  if (is.numeric(explicativeX_var)) {
+    "La variable explicativeX sélectionnée est numérique."
+  } else if (is.numeric(explicativeX_var)) {
+  # Calcule le nombre d'éléments distincts afin de mieux calsser la variable. 
+    unique_values <- length(unique(explicativeX_var))
+    if (unique_values == 2) {
+      "La variable explicativeX sélectionnée est dichotomique."
+    } else if (unique_values > 2) {
+      "La variable explicativeX sélectionnée est catégorielle."
+    } else {
+      "La varaible dépendante a des données invalides"
+    }
+  } else {
+    "La variable sélectionnée n'est ni numérique , ni une suite de caractères. "
+  }
+}
+</Explication code></pre>
+
+<h2 style="font-size: 24px;"> Etape 4 : associer le résultat vectoriel et le test adéquat(sans exécution) </h2>
+
+Ainsi, on peut créer une **fonction** de statistique, qui va notamment
+associer le résultat conservé dans les différents vecteurs
+explicative_var....ce qui va permettre de **déterminer le nom du test** le
+plus adéquat. 
+
+<br>Ainsi, la sélection du test devient alors **automatisée**,
+tout en restant flexible suivant la base de données et les variables
+sélectionnées.
+
+<pre><Explication code>
+
+if (expliquéeX_var_caractéristique == "L'hypothèse de normalité est violée") {
+    if (explicativeX_var_caractéristique == "continue") {
+      return("Coeff de corrélation de Spearman")
+    } else if (explicativeX_var_caractéristique == "unique") {
+      return("Test du signe")
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c(
+        "Wilcoxon test",
+        "Mann-Whitney U test 2 (non apparié)"
+      ))
+    } else if (explicativeX_var_caractéristique == "catégorielle") {
+      return(c(
+        # "Test d'ANOVA apparié",
+        "Kruskal-Wallis test 1 (explicativeX)"
+      ))
+</Explication code></pre>
+
+<h2 style="font-size: 24px;">Etape 5 : lier le nom du le test à sa fonction afin d'**exécuter** le test statistique</h2>
+
+Afin de pouvoir calculer le test le plus adéquat, il apparaît donc
+nécessaire d'**associer** chaque test à sa **fonction**.Ainsi, l'association du
+test et son exécution est effectuée grâce à par **switch(résultat,"nom du
+test"=Package::teststatistique)**.
+
+<pre><Explication code>
+#Calculons les tests statistiques avec une fonction de débug. 
+  result <- tryCatch(
+    {
+      switch(test_name,
+             "Test du signe" = DescTools::SignTest(x = data[[expliquéeX_var]], mu = mu, alternative = "two.sided"),
+             "Wilcoxon test" = stats::wilcox.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data, paired = TRUE, alternative = "two.sided"),
+             "Mann-Whitney U test 2 (non apparié)" = {
+               unique_values <- unique(data[[explicativeX_var]])
+               groupee1 <- data[data[[explicativeX_var]] == unique_values[1], expliquéeX_var]
+               groupee2 <- data[data[[explicativeX_var]] == unique_values[2], expliquéeX_var]
+               stats::wilcox.test(groupee1, groupee2, paired = FALSE, alternative = "two.sided", conf.int = TRUE)
+             },
+             "Kruskal-Wallis test 1 (explicativeX)" = stats::kruskal.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data),
+             "Tstudent 1 echantillon" = stats::t.test(data[[expliquéeX_var]], mu = mu, alternative = "two.sided"),
+             "T-test (test apparié)" = stats::t.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data, paired = TRUE, alternative = "two.sided", var.equal = FALSE),
+             "explicativeX samples t-test (non apparié)" = {
+               data[[explicativeX_var]] <- as.factor(data[[explicativeX_var]])
+               if (length(levels(data[[explicativeX_var]])) != 2) stop("The explicativeX variable must have exactly two levels for an explicativeX t-test.")
+               part_one <- stats::t.test(data[[expliquéeX_var]] ~ data[[explicativeX_var]], data, paired = FALSE, alternative = "two.sided", var.equal = FALSE)
+
+               formula <- stats::as.formula(paste(substitute(expliquéeX_var), "~", substitute(explicativeX_var))) ## formula working example!
+               part_two <- rstatix::cohens_d(data, formula,
+                                             var.equal = TRUE)
+
+               c(part_one, part_two)
+
+             },
+             </Explication code></pre>
+
+<h2 style="font-size: 36px;">II.Générer les outputs graphiques mais également des tests statistiques </h2>
+
+Toutefois, il faut notamment souligner qu'il est nécessaire
+d'**implémenter** dans Server les éléments d'"output", donc les résultats,
+dont on a déjà créé le curseur ou le bouton. 
+
+Par exemple, **rendre réactif le menu déroulant des variables** se déroule
+dans la partie server ; en effet la **liste** a besoin d'être **regénérée** pour chaque base de
+données  Ainsi, l'adaptation spécifique à la base de données se
+déroule tout particulièrement dans le serveur. 
+
+<pre><Explication code>
+  output$identifier_dropdown <- shiny::renderUI({
+    shiny::req(sdata())
+    shinyWidgets::pickerInput("identifier_var", "Choisir la variable identifiée", choices = colnames(sdata()))
+  })
+  
+  # Menu déroulant des variables expliquéeYs
+  output$expliquéeX_var_text <- shiny::renderText({
+    shiny::req(input$expliquéeX_var)
+    determine_expliquéeX_variable(sdata()[, input$expliquéeX_var])
+  })
+  
+  # Texte additionnel pour la variable explicativeX. 
+  output$explicativeX_var_text <- shiny::renderText({
+    shiny::req(input$explicativeX_var)
+    
+    if (input$explicativeX_var %in% colnames(sdata())) {
+      determine_explicativeX_variable(sdata()[, input$explicativeX_var])
+    }
+  })
+  </Explication code></pre>
+
+Ensuite, apparaît dans un cas spécifique un aute  menu déroulant afin de sélectionner
+**le test statistique si les données sont appariées**, souvent au nombre de deux ,  autant que **l'identifiant ID**. Cela permet de repérer les correspondances au sein de la base de données et pouvoir effectuer des tests de significativités desssus, par exemple dans le cadre **d'un groupe contrôle et d'un groupe témoin**. La fonction **renderUI** va permettre notamment de créer de
+nouveaux menus déroulant pour chaque nouvelle base de donnée que l'on va
+mettre .
+
+Voici des exemples de **menus générés à partir de la base de données**
+<pre><Explication code>
+  # Nouveau menu déroulant pour sélectionner le test statistique. 
+  output$statistical_test_dropdown <- shiny::renderUI({
+    shiny::req(input$expliquéeX_var, input$explicativeX_var)
+    
+    if (input$explicativeX_var == "valeur de référence") {
+      explicativeX_var <- "valeur de référence"
+    } else {
+      explicativeX_var <- sdata()[, input$explicativeX_var]
+    }
+    test <- SélectionTestStatistiques(sdata()[, input$expliquéeX_var], explicativeX_var)
+    test_options <- c(test)
+    shinyWidgets::pickerInput("statistical_test", "Choose statistical test", choices = test_options)
+  })
+  </Explication code></pre>
+
+La fonction serveur permet d'effectuer notamment les fonctions qu'on
+faisait par exemple sous R, de **génération de graphiques**. La seule
+différence est l'importance de modifier le graphique afin qu'il
+corresponde aux nouveaux choix de variables à effectuer. Cela est
+produit par la fonction **renderPlot()**.
+
+<pre><Explication code>
+  Afficher l'histogramme de la variable Y sélectionnée.
+output$expliquéeX_var_histogramme <- shiny::renderPlot({
+    shiny::req(sdata(), input$expliquéeX_var)
+    créer_expliquéeX_variable_histogramme(sdata()[, input$expliquéeX_var])
+})
+</Explication code></pre>
+
+<h2 style="font-size: 24px;"> Etape 6 : afficher les tests statistiques</h2>
+
+Ici on va implémenter la fonction qui permet **d'afficher les résultats
+des tests statistiques à l'utilisateur**. 
+
+<pre><Explication code>
+output\$test_report \<- shiny::renderPrint({
+result \<- perform_statistical_test(sdata(), input) if
+(!is.null(result)) result }) }
+
+</pre></Explication code>
+
+# Difficultés avec Flexdashboard{data-navmenu="conclusion"}
+
+
+<ul>
+  <li>L'intégration sous Flexdashboard s'est révélée être plus simple que d'autres packages de template car elle permet d'intégrer nativement Rshiny.</li>
+  <li>Elle possède un thème plus adapté à la présentation, qui s'appelle le **storyboard**, utilisé ici.</li>
+  <li>La sélection habituelle des pages une par une dans la barre a été simplifiée en proposant des menus déroulants par page.</li>
+  <li>Certaines difficultés ont été rencontrées :
+    <ul>
+      <li>La **barre déroulante** s'affichait sur toute la page, avec également les sous-pages, ce qui empêchait l'affichage du contenu.</li>
+      <li>La police ne pouvait pas être modifiée comme sous R Markdown, il a fallu ajouter des fichiers CSS.</li>
+      <li>Le balisage était obligatoire.</li>
+      <li>Sensibilité à la casse (par exemple, une erreur dans les balises provoquait une application sans contenu).</li>
+      <li>La série de signes d'égalité <code>===============</code> permet de créer une nouvelle page.</li>
+    </ul>
+  </li>
+</ul>
+
+# Conclusion {data-navmenu="conclusion"}
+
+
+
+<h1>Conclusion</h1>
+<p>
+Ainsi, pour conclure, cette application de tests statistiques, avec sélection automatique de tests paramétriques ou non paramétriques, permet donc d'avoir un **calcul rapide du "bon" test statistique**, et notamment ceux qui sont **les moins courants**.
+</p>
+<p>
+Cela peut constituer un bon outil pour les personnes ayant des bases de données **complexes** à gérer.
+</p>
+
+ 
+<ul>
+  <li>Ainsi,  cette application de tests statistiques, avec sélection automatique de tests paramétriques ou non paramétriques, permet d'avoir un choix  **rapide  et automatique** du "bon" test statistique, y compris ceux qui sont les moins courants.</li>
+  <li>Elle peut constituer un bon outil pour les personnes ayant des bases de données complexes à gérer.</li>
+  <li>
+    De plus, la construction de ce code, ainsi que des rapports interactifs, a été challengeante :
+    <ul>
+      <li>Notamment en termes de création de syntaxe.</li>
+      <li>Cela m'a permis de renforcer mes compétences dans la gestion de ce type d'erreurs.</li>
+    </ul>
+  </li>
+  <li>L'utilisation de **Flexdashboard** a permis de découvrir un peu l'écriture HTML ou CSS, parfois utile dans R Markdown pour élargir les possibilités.</li>
+</ul>
+
+
+# Documentations {data-navmenu="conclusion"}
+
+Pour flexdashboard : le tutoriel de Rstudio.
+<https://rstudio.github.io/flexdashboard/articles/using.html#multiple-pages>
+
+
+Rshiny Tutorials sur Youtube.
+
+R Markdown avec du Explication code Rshiny : documentation officielles.
+<https://bookdown.org/yihui/rmarkdown/shiny-documents.html#deployment>
+
+Pour R shiny , ce site était particulièrement utile , étant donné qu'il
+a été créé par un fondateur de R shiny.
+<https://mastering-shiny.org/basic-ui.html>
+

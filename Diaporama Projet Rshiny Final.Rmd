@@ -114,7 +114,8 @@ Ainsi, on remarque notamment en mettant une médiane de 20, que la médiane éga
 I.Charger l'ensemble des packages nécessaires. 
 
 ```{r,echo=FALSE}
-#A lancé avec run : 
+#Pré-requis
+
 #Installer le package de template 
 library("flexdashboard")
 
@@ -129,7 +130,8 @@ install.packages(setdiff(packages, rownames(installed.packages())))
 library(rstatix)
 library(DescTools)
 library(stats)
-#Packages nécessaires afin de charger les données.
+
+#Packages nécessaires afin d'exécuter de manière interactives les commandes. 
 library(shiny)
 library(shinyjs)
 library(DT)
@@ -1146,9 +1148,10 @@ Ainsi, flexdashboard s'ajoute à Rmarkdown, et il a été plutôt simple à pren
 -la série de signes d'égalités ================ permettent notamment de créer une nouvelle page
 -les commentaires ##si storyboard accordés peuvente permettre de créer un menu déroulant à côté.
 
-Exporter sous GIT
+Exporter sous format HTML 
 ===============================
 ```{r}
+rmarkdown::render("Diaporama Projet Rshiny Final.Rmd")
 
 
 ```

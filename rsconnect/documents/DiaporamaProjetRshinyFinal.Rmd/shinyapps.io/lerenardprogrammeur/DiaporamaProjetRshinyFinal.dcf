@@ -1,0 +1,12 @@
+name: DiaporamaProjetRshinyFinal
+title: DiaporamaProjetRshinyFinal
+username: lerenardprogrammeur
+account: lerenardprogrammeur
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13703292
+bundleId: 9643370
+url: https://lerenardprogrammeur.shinyapps.io/DiaporamaProjetRshinyFinal/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
