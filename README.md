@@ -115,9 +115,11 @@ Le résultat final du test est alors affiché dans le cadre. Afin de pouvoir aff
 ## 2eme possibilité : tester la significativité entre les variables . 
 Il suffit cette fois-ci pour l'utilisateur de sélectionner la variable expliquée et explicative , ce qui permet donc de tester la significativité. 
 <br>
-# 2eme application : comparer des modèles de régression statistique 
 
-Effectivement, il est possible de comparer toutes les combinaisons de variables explicatives entre elles, afin de trouver la spécification qui va amener la meilleure performance du modèle. <br>
+# 3eme application : comparer des modèles de régression statistique 
+
+Effectivement, il est possible de comparer toutes les combinaisons de variables explicatives entre elles, afin de trouver la spécification qui va amener la meilleure performance du modèle.
+<br>
 Ainsi, après avoir sélectionner la base de données, puis la variable Y , voire déjà les variables explicatives qui vont servir à l'analyse en générale (1er onglet), l'utilisateur peut cliquer sur l'onglet intitulé modélisation automatique, qui fait un test de VIF de multicolinéarité et permet également d'afficher des régressions. 
 <br>
 Ensuite dans le 4eme onglet, on y retrouve la possibilité de faire une sélection par la méthode la plus répandue, celle de l'elasticnet qui effectue notamment une minimisation de la multicolinéarité parfaite autant qu'une annulation des variables non significatives. 
@@ -129,10 +131,8 @@ Enfin, la recherche exhaustive, qui pourrait permettre dans de nombreux cas , ac
 ### Mettre en place les données. 
 Les données peuvent être chargées sous différents formats : R, csv....
 
-### Comparer les performances. 
-: la comparaison des performances (R2, Fischer...) entre différentes régresssions multiples, logistiques , avec sélection individuelle des variables. 
+### Comparer les performances : la comparaison des performances (R2, Fischer...) entre différentes régresssions multiples, logistiques , avec sélection individuelle des variables. 
 
-Dans le but d'une régression, 
  
 Ainsi, la partie de tests statistiques permet essentiellement de vérifier la qualité des données, avant de pouvoir les utiliser. 
 De plus, une seconde partie a été ajoutée, dans la continuité de la 1ere , qui permet notamment de comparer la performances des modèles. 
