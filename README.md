@@ -1,6 +1,6 @@
 # M1-Programmation-
 
-#Description courte du projet 
+# Description courte du projet 
 <br>
 Ce dossier a pour but de permettre de lancer une application qui va automatiser l'exécution de tests statististiques , permettant de sélectionner des données de qualité , autant que des liaisons entre les variables significatives. De plus, il est également proposé de pouvoir comparer par la suite des modèles de régression, à partir des données utilisées. <br>
 
