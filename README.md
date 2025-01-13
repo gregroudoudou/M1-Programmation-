@@ -3,11 +3,15 @@
 #Description courte du projet 
 Ce dossier a pour but de permettre de lancer une application qui va automatiser l'exécution de tests statististiques , permettant de sélectionner des données de qualité , autant que des liaisons entre les variables significatives. De plus, il est également proposé de pouvoir comparer par la suite des modèles de régression, à partir des données utilisées. <br>
 
+Deux éléments **cruciaux** à ne surtout pas oublier : le support des applications est beaucoup plus élevé en activant l'option **ouvrir dans un navigateur** que dans un autre navigateur sur Rstudio, et d'ailleurs , élément beaucoup plus simple, le flexdashboard qui affiche les deux applications dans la partie test est disponible à ce lien.
+
+<br> Le lien est disponible ici : https://lerenardprogrammeur.shinyapps.io/DiaporamaProjetRshinyFinal/ 
+
 # Structure des dossiers et des fichiers du Github 
 
 Ainsi, le code R permet de lancer directement chacune des applications Shiny, que ce soit celle de performance du modèle ou celle de tests statistiques . <br>
 Ensuite, le code Rmarkdown , permet de créer un dashboard interactif, qui permet donc d'intégrer autant les applications RShiny que l'explication du code en lui-même, dans ses grandes lignes. <br>
-Enfin, ce readme permet de rapidement lancer correctement l'application . 
+Enfin, ce readme permet de rapidement lancer correctement l'application . <br>
 
 ## Pré-requis : installation des packages nécessaires. 
 Le 1er pré-requis est d'avoir la version de Rstudio la plus récente, ainsi que les packages nécessaires, rappelés ci-dessous. 
@@ -81,7 +85,7 @@ Il  permet ainsi d'insérer l'application entière en elle-même, facilitant les
 
 ### 4 : Attention :pour un affichage correct, choisir l'affichage sur le navigateur. 
 En effet, uniquement sur le navigateur Edge, on peut avoir l'ensemble du contenu qui est affiché. Il s'agit d'un bug qui est potentiellement lié à l'habitude d'avoir un tableau interactif sur un navigateur, et non dans le viewer de Rstudio (potentiellement). 
-
+<br>
 
 
 # Exemples d'utilisation de l'application Rshiny "Logicieldeteststatistique"
@@ -103,15 +107,22 @@ Après avoir lancé l'application, l'application Shiny permet notamment de séle
 Ainsi, le 1ere critère sera par exemple le respect de l'hypothèse de normalité de la variable Y . Un texte s'affiche automatiquement afin d'indiquer à l'utilisateur si la variable Y suit une loi normale ou pas. Ainsi, cela permet de savoir si on va utiliser un test paramétrique (distribution normale) ou non paramétrique. 
 
 Ensuite, entre en jeu le type de variable Y : si la variable est binaire, quantiative ou multinomiale.Certains tests , en effet, notamment paramétriques, reposent d'emblée sur les régressions sous-jacentes. Ensuite, la variable X , explicative est choisie :elle peut être dichotomique, quantitative ou catégorielle.Cela permet ainsi d'effectuer le test statistique adéquat, et de mettre en place des étapes, parfois oubliées, comme le respect des hypothèses. 
-
+<br>
 ### 3.Résultat final
 Le résultat final du test est alors affiché dans le cadre. Afin de pouvoir afficher l'ensemble des résultats de chaque test (intervalles de confiances, degrés de libertés...), qui sont souvent propres à chaque test statistique, j'ai décidé de garder l'encadré originel. 
-
+<br>
 
 ## 2eme possibilité : tester la significativité entre les variables . 
-Il suffit cette fois-ci pour l'utilisatuer de sélectionner la variable expliquée et explicative , ce qui permet donc de tester la significativité. 
-
+Il suffit cette fois-ci pour l'utilisateur de sélectionner la variable expliquée et explicative , ce qui permet donc de tester la significativité. 
+<br>
 # 2eme application : comparer des modèles de régression statistique 
+
+Effectivement, il est possible de comparer toutes les combinaisons de variables explicatives entre elles, afin de trouver la spécification qui va amener la meilleure performance du modèle. <br>
+Ainsi, après avoir sélectionner la base de données, puis la variable Y , voire déjà les variables explicatives qui vont servir à l'analyse en générale (1er onglet), l'utilisateur peut cliquer sur l'onglet intitulé modélisation automatique, qui fait un test de VIF de multicolinéarité et permet également d'afficher des régressions. 
+<br>
+Ensuite dans le 4eme onglet, on y retrouve la possibilité de faire une sélection par la méthode la plus répandue, celle de l'elasticnet qui effectue notamment une minimisation de la multicolinéarité parfaite autant qu'une annulation des variables non significatives. 
+<br>
+Enfin, la recherche exhaustive, qui pourrait permettre dans de nombreux cas , accéder à une spécification du modèle plus aboutie,consiste en une comparaison des RCarrés de l'ensemble des régressions possibles à l'aide d'une tableau croisé de variables, de façon aléatoire. 
 
 # Utilisation rapide 
 ### Charger le fichier R
