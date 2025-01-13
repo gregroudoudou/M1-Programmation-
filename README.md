@@ -1,6 +1,7 @@
 # M1-Programmation-
 
 #Description courte du projet 
+<br>
 Ce dossier a pour but de permettre de lancer une application qui va automatiser l'exécution de tests statististiques , permettant de sélectionner des données de qualité , autant que des liaisons entre les variables significatives. De plus, il est également proposé de pouvoir comparer par la suite des modèles de régression, à partir des données utilisées. <br>
 
 Deux éléments **cruciaux** à ne surtout pas oublier : le support des applications est beaucoup plus élevé en activant l'option **ouvrir dans un navigateur** que dans un autre navigateur sur Rstudio, et d'ailleurs , élément beaucoup plus simple, le flexdashboard qui affiche les deux applications dans la partie test est disponible à ce lien.
