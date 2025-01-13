@@ -8,9 +8,7 @@ Ainsi, le code R permet de lancer directement chacune des applications Shiny.
 Ensuite, le code Rmarkdown , permet de créer un dashboard interactif, qui permet donc d'intégrer autant les applications RShiny que l'explication du code en lui-même, dans ses grandes lignes. 
 Enfin, ce readme permet de rapidement lancer l'application . 
 
-## Lancement rapide  
-
-### Tout fichier confondu : installation des packages nécessaires. 
+## Pré-requis : installation des packages nécessaires. 
 Le 1er pré-requis est d'avoir la version de Rstudio la plus récente, ainsi que les packages nécessaires, rappelés ci-dessous. 
 Le document R ou Rmarkdown contient normalement cette étape, voici un code similaire si vous avez loupez cette étape. De nombreux packages sont nécessaires afin de pouvoir effectuer les tests statistiques. 
 L'application a été réalisée sous l'IDE Rstudio, qui a également créé le langage Rshiny, son téléchargement est donc recommandé. 
@@ -44,16 +42,19 @@ On a également ce package à installer, si vous souhaitez accéder au diaporama
 install.packages("flexdashboard")
 library(flexdashboard)
 ```
+Ces étapes permettent de s'assurer que l'ensemble des packages ont été chargés afin de pouvoir lancer correctement les deux documents. 
 
+# Lancer les fichiers .R pour accéder aux applications Shiny.  
+Ce tutoriel a été réalisé à l'aide de Rstudio. 
 
-### Lancerl'application Rshiny : permettre un lancement sur l'environnement de travail RStudio 
-#### Lancer le fichier R après téléchargement. 
+## Lancer le fichier R après téléchargement ! 
+
 Après avoir téléchargé sur Github le fichier R "Logicieldetestsstatistiques.R", il vous suffit de le lancer avec un IDE choisi. 
 
-#### Détection de Rshiny : vérifier la présence du bouton Run App 
+## Détection de Rshiny : vérifier la présence du bouton Run App 
 Si Rshiny a déjà été installé et chargé , ce qui signifie que vous avez donc suivi l'étape suivante d'installation des packages, il devra s'afficher normalement un bouton supplémentaire, à côté du run, dénommé Run App, comme indiqué ici sous Rstudio. 
 
-Voici une capture d'écran de l'icône qui est censé apparaître.
+Voici une capture d'écran de l'icône qui est censé apparaître et qui permet de lancer directement l'application au format html.
 
 ![Icône de lancement de l'application RShiny](projetprogra1.png)
 
@@ -66,6 +67,9 @@ Ensuite, il devrait , après avoir chargé le fichier DiaporamaProjetRshinyFinal
 
 Normalement, la présentation devrait s'afficher sur un fichier html à part ; ce qui permet l'interactivité.
 Il  permet ainsi d'insérer l'application entière en elle-même, facilitant les explications des exemples d'utilisation. 
+
+### 4 : Attention :pour un affichage correct, choisir l'affichage sur le navigateur. 
+En effet, uniquement sur le navigateur Edge, on peut avoir l'ensemble du contenu qui est affiché. Il s'agit d'un bug qui est potentiellement lié à l'habitude d'avoir un tableau interactif sur un navigateur, et non dans le viewer de Rstudio (potentiellement). 
 
 
 
