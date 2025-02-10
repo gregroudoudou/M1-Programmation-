@@ -51,9 +51,9 @@ Ce repository regroupe l'ensemble de mes projets réalisés durant mes études, 
 
 ## Auteur & Contact
 
-- **Nom :** [Votre Nom]  
-- **Email :** [votre.email@example.com]  
-- **Institution :** [Nom de votre institution]
+- **Nom :** FUCHS Grégoire]  
+- **Email :** [grgoirefuchs@gmail.com]  
+- **Institution :** [Unistra]
 
 ---
 
