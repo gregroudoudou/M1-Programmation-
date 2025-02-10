@@ -1,6 +1,6 @@
 
 
-N'hésitez pas à consulter le PDF, nommer "L'impact causal des institutions sur la croissance éco " pour obtenir une analyse détaillée des méthodes et des résultats qui se retrouve dans ce projet.La partie programmation sous R a été réalisé par moi, tandis que le Markdown a été créé par Hugo, et la présentation finale par Medhi. 
+N'hésitez pas à consulter le PDF, nommer "L'impact  des institutions sur la  performance économique " pour obtenir une analyse détaillée des méthodes et des résultats qui se retrouve dans ce projet.La partie programmation sous R a été réalisé par moi, tandis que le Markdown a été créé par Hugo, et la présentation finale par Medhi. 
 # Projet M1 : Impact des institutions sur la croissance economique
 
 Ce dépôt contient un PDF qui retrace un projet de M1 visant à étudier l'impact des institutions sur la croissance économique. Le projet s'inspire notamment des travaux d'Acemoglu, dans son article de 2001, qui ne traite toutefois pas du cas Africain, et utilise des méthodes économétriques avancées pour effectuer de l'inférence causale.
