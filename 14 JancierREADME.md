@@ -1,4 +1,4 @@
-# M1-Programmation-
+# M1-Programmation-S1
 
 # Description courte du projet 
 <br>

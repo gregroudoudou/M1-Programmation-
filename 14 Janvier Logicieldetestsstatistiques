@@ -8,8 +8,9 @@ library(shinyWidgets)
 
 ##But de l'application : calculer des statistiques paramétriques et semi-paramétriques
 #En ayant une sélection automatique du test (àl'exception de l'appariemment ou non )
-#Il contient pas le T de Student à 2 échantillons ni Fisher étant donné que c'est souvent effectué automatiquement dans Summary. 
-#Penser à installer ShinyJs avant pour certaines options.
+#Application 1 
+
+
 #Faire install.packages(shinyJs) si besoin
 library(shinyjs)
 
