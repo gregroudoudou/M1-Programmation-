@@ -1,4 +1,4 @@
-# Projets Académiques
+# Projets académiques
 
 Ce repository regroupe l'ensemble de mes projets réalisés durant mes études, incluant mes travaux de Licence 3 (L3), Master 1 (M1) ainsi que mon cursus de Magistère. Vous y découvrirez un travail centré sur :
 
