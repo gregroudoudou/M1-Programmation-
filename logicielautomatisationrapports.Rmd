@@ -4,10 +4,6 @@ output: html_document
 date: "2025-01-07"
 runtime: shiny
 ---
-ATTENTION : 1:test name qu'est ce que c'est ? 
-ENLEVER certaine boucle if : 1 programme de NORAMLITE...se BALLADE!
-Attention mots anglais sur interface graphique !!! 
-
 
 Cette application va permettre de choisir automatiquement un test statistique, parmifois les statistiques paramétriques et semi-paramétriques , offrant une analyse approfondie, et surtout automatique.
 
