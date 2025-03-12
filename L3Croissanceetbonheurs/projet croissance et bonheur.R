@@ -1,24 +1,5 @@
 
 
-#SAVOIR MONTRER GRAPHIQUEMENT UNE RELATION LINEAIRE ENTRE CROISSANCE ET BONHEUR !!! 
-plot(Boston$nb_piece, Boston$prx,xlab="Nombre moyen de pièces (nb_piece)",
-     ylab="prix médian exprimé en milliers de $")=NOMMER LES AXES !!! 
-  
-  cor(Boston$nb_piece, Boston$prx)
-
-#On suspecte une relation linéaire positive confirmées par la corrélation positive forte 0.69
-
-#causalité ! nb_piece --> prx
-#Plus une propriété contient de pièce/ surface,+ son prix de vente sera important
-
-#DETERMINER LES COEFFICEINTS DES MCOS : 
-
-#lm(Y~ X, data)
-#Prix= beta_0 + beta_1* nb_piece
-lm(prx~nb_piece,data=Boston)
-#-34.67 beta_0/ordonnée à l'origine/constane
-#9.102 beta_1/effet marginal de X 
-
 
 
 
