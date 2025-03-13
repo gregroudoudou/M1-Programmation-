@@ -1,3 +1,21 @@
+
+
+## Structure du Repository
+
+**/L3/**
+What is the most important factor in economic growth? Health?
+
+Environment and regional development.
+Contains all projects and assignments completed during my third year of the Bachelor's degree.
+**/M1/**
+
+Impact of institutions on growth: instrumental variables approach.
+Panel data analysis: within/between effects of health on income, impact of breakfast...
+Groups projects completed during my first year of the Master's program.
+**/Magistere/**
+
+Includes work carried out as part of my Magistère program.
+---
 # Projets académiques
 
 Ce repository regroupe l'ensemble de mes projets réalisés durant mes études, incluant mes travaux de Licence 3 (L3), Master 1 (M1) ainsi que mon cursus de Magistère. Vous y découvrirez un travail centré sur :
@@ -15,20 +33,6 @@ Ce repository regroupe l'ensemble de mes projets réalisés durant mes études, 
   La mise en œuvre de processus parallèles pour optimiser les calculs et accélérer les analyses.
 
 ---
-
-## Structure du Repository
-
-- **/L3/**  
-  Contient tous les projets et travaux réalisés durant ma Licence 3.
-
-- **/M1/**  
-  Regroupe les projets réalisés durant mon Master 1.
-
-- **/Magistere/**  
-  Comprend les travaux effectués dans le cadre de mon cursus de Magistère.
-
----
-
 ## Instructions et Prérequis
 
 ### Projets RShiny
