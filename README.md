@@ -7,11 +7,13 @@ What is the most important factor in economic growth? Health?
 
 Environment and regional development.
 Contains all projects and assignments completed during my third year of the Bachelor's degree.
+
 **/M1/**
 
 Impact of institutions on growth: instrumental variables approach.
 Panel data analysis: within/between effects of health on income, impact of breakfast...
 Groups projects completed during my first year of the Master's program.
+
 **/Magistere/**
 
 Includes work carried out as part of my Magistère program.
