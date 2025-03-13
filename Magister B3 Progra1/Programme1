@@ -1,0 +1,41 @@
+  # On installe les packages si vous ne les avez pas déjà installés
+install.packages("rvest")
+install.packages("stringr")
+
+# On charge les packages
+library(rvest)
+library(stringr)
+
+# On souhaite compter le nombre d'occurence d'un mot sur une page web.
+compter_mots <- function(url, mot) {
+
+# On souhaite lire  le contenu HTML de la page web
+  page <- read_html(url)
+
+# On souhaite extraire le texte de la page
+  texte <- html_text(page)
+
+  # On utilise la fonction str_count pour compter le nombre d'occurrences du mot
+  nombre_occurrences <- str_count(texte, fixed(mot))
+
+  # On obtient enfin  le résultat
+  return(nombre_occurrences)
+}
+
+# Voici un exemple d'utilisation pour une page web que j'indique :
+url <- "https://fr.wikipedia.org/wiki/Emmanuel_Macron"
+mot_a_rechercher <- "électorale"
+resultat <- compter_mots(url, mot_a_rechercher)
+
+cat("Le mot '", mot_a_rechercher, "' apparaît", resultat, "fois dans la page web.\n")
+
+#Maintenant j'approfondis mon programme et je propose à mon utilisateur de choisir une page web :
+url <- readline(prompt = "Entrez l'URL de la page web : ")
+
+#On souhaite chercher un mot spécifique que je peux entrer dans le terminal sur cette même page web .
+mot_a_rechercher <- readline(prompt = "Entrez le mot à rechercher : ")
+
+resultat <- compter_mots(url, mot_a_rechercher)
+
+#Ensuite je souhaite faire afficher  le comptage de mot en une phrase :
+cat("Le mot '", mot_a_rechercher, "' apparaît", resultat, "fois dans la page web.\n")
