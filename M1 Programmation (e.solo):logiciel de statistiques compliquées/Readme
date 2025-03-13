@@ -1,46 +1,46 @@
-# 📊 Automatic Statistical Test Selector
+#  Automatic Statistical Test Selector
 
-## 🔍 Overview  
+## Overview  
 This application **automatically selects the most appropriate statistical test** among parametric and semi-parametric methods, offering a **detailed and fully automated analysis**.
 
 With this tool, users can:  
-✅ Verify **data consistency** (e.g., sample representativeness).  
-✅ Evaluate the **significance of relationships** between two variables (X and Y) in **complex models**.  
-✅ Automatically **choose the most suitable statistical test** and compute results effortlessly.  
+ Verify **data consistency** (e.g., sample representativeness).  
+ Evaluate the **significance of relationships** between two variables (X and Y) in **complex models**.  
+ Automatically **choose the most suitable statistical test** and compute results effortlessly.  
 
 ---
 
-## ⚡ **Why is it Automatic?**  
-🚀 **No user intervention required!**  
+## **Why is it Automatic?**  
+ **No user intervention required!**  
 Simply **import** your dataset and **select** the variables. The application does the rest, choosing the right statistical test automatically.  
 
 Moreover, users can:  
-📈 Select the **best model** based on the highest **R² (explanatory power)**.  
-🔄 Explore multiple **model specifications** for **exhaustive research**.  
+ Slect the **best model** based on the highest **R² (explanatory power)**.  
+ Explore multiple **model specifications** for **exhaustive research**.  
 
 ---
 
-## 🤔 **How Can We Significantly Improve Data Analysis Quality?**  
+##  **How Can We Significantly Improve Data Analysis Quality?**  
 This application provides a powerful **automated solution** to answer this question!  
 
 🔹 **No manual test selection required**  
 🔹 **Maximizes model selection efficiency**  
 🔹 **Ensures rigorous statistical analysis**  
 
-🎯 Perfect for researchers, analysts, and data scientists looking for **accuracy and automation** in statistical testing!  
+ Perfect for researchers, analysts, and data scientists looking for **accuracy and automation** in statistical testing!  
 
 ---
 
-## 🚀 **Getting Started**  
-1️⃣ Import your dataset 📂  
-2️⃣ Select your variables 📊  
-3️⃣ Let the app **automatically choose the best statistical test** ✅  
+##  **Getting Started**  
+1️ Import your dataset   
+2️ Select your variables   
+3️ Let the app **automatically choose the best statistical test**  
 
-🔎 **Stay focused on insights, not calculations!**  
+ **Stay focused on insights, not calculations!**  
 
 ---
 
-## 📜 License  
+##  License  
 This project is licensed under the [MIT License](LICENSE).
 
 ---
