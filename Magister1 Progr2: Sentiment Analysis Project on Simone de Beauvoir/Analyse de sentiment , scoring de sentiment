@@ -1,0 +1,192 @@
+rm(list = ls())
+
+# Charger les packages nécessaires 
+
+library(pdftools)
+library(readxl)
+library(tidytext)
+library(tm)
+library(SnowballC)
+library(RColorBrewer)
+library(wordcloud)
+library(dplyr)
+library(readr)
+library(readtext)
+library(tidycensus)
+library(rlang)
+library(stringr)
+
+# Spécifier le chemin vers votre fichier PDF
+setwd("/home/alicelaunay25/Projet_programmation_S6/analyse_de_texte")
+
+chemin_pdfANG <- "/home/alicelaunay25/Projet_programmation_S6/analyse_de_texte/The second sex.pdf"
+
+# Utiliser la fonction pdf_text() pour extraire le texte du PDF
+texteANG_pdf <- pdf_text(chemin_pdfANG)
+
+# Charger les mots vides en français à partir du fichier Excel
+
+stop_word_ANG <- read_excel("/home/alicelaunay25/Projet_programmation_S6/analyse_de_texte/stop_word_english.xlsx")
+names(stop_word_ANG) <- "stop_word"
+View(stop_word_ANG)
+
+# Convertir le texte PDF en un seul bloc de texte
+texteANG_complet <- paste(texteANG_pdf, collapse = " ")
+
+# Trouver la position du début de la partie "INTRODUCTION"
+debut_intro <- str_locate(texteANG_complet, "I hesitated a long time")[1]
+
+# Trouver la position de la phrase spécifiée à la fin de votre analyse
+fin_analyse <- str_locate(texteANG_complet, "unequivocally affirm their brotherhood")
+
+# Afficher la position de début de l'INTRODUCTION
+print(debut_intro)
+
+# Afficher la position de fin de l'analyse
+print(fin_analyse)
+
+# Extraire la partie du texte entre ces deux positions
+texteANG_decoupe <- substr(texteANG_complet, debut_intro, fin_analyse[1])
+
+# Convertir le texte en minuscules et supprimer la ponctuation
+cleaned_text_ENG <- tolower(texteANG_decoupe)
+cleaned_text_ENG <- gsub("\\W", " ", cleaned_text_ENG)
+
+# Créer un data frame avec un mot par ligne
+word_data1 <- tibble(text = cleaned_text_ENG) %>%
+  unnest_tokens(word, text)
+
+# Filtrer les mots vides en français
+word_data_filtered1 <- word_data1 %>%
+  filter(!word %in% stop_word_ANG$stop_word)
+
+# Compter les fréquences des mots après avoir filtré les mots vides
+word_freq1 <- dplyr::count(word_data_filtered1, word) %>%
+  dplyr::arrange(desc(n))
+
+# Afficher les 20 premières lignes du classement
+head(word_freq1, 20)
+
+################Classement des mots les plus fréquement utilisés dans le texte#################### 
+#
+#1 woman    2684
+#2 man      1469
+#3 women    1418
+#4 love      817
+#5 life      780
+#6 men       645
+#7 mother    613
+#8 male      541
+#9 girl      527
+#10 husband   523
+#11 child     432
+#12 young     415
+#13 time      404
+#14 wife      374
+#15 body      354
+#16 sexual     342
+#17 marriage   325
+#18 feminine   296
+#19 children   292
+#20 work       291
+
+
+#Nuage de mots
+wordcloudENG_data <- word_freq1
+
+# Créer le nuage de mots
+wordcloud(words = wordcloudENG_data$word, freq = wordcloudENG_data$n, max.words = 100, random.order = FALSE, colors = brewer.pal(8, "Dark2"))
+
+##############PARTIE ANALYSE DE SENTIMENT##################
+
+library(sentimentr)
+library(syuzhet)
+library(data.table)
+library(rlang)
+library(dbplyr)
+library(dtplyr)
+library(plyr)
+
+#Analyse de sentiment 
+
+sentiments_ENG <- get_sentiment(cleaned_text_ENG, method = "bing")
+
+# Afficher les résultats
+print(head(sentiments_ENG))
+
+#Résultat : [1] -968
+#Donc le texte serait considé comme négatif 
+
+
+########################################
+
+library(quanteda)
+library(readtext)
+library(tm)
+library(NLP)
+library(rlang)
+library(tidytext)
+library(stringi)
+library(magrittr)
+library(Rcpp)
+
+#On cherche à connaitre le sentiement de l'introduction avec un code plus précis que le package "sentimentr".
+#On va utiliser le lexique AFINN-111. Chaque mot correspond à un score. Par exemple, agreeable = 2 et furious = -3
+#Les scores vont de -5 à 5. 
+
+# Début de la partie "INTRODUCTION"
+partie1 <- str_locate(texteANG_complet, "Facts and Myths")[1]
+print(partie1)
+
+# "3612" indique l'index de départ de la première occurrence de la chaîne de caractères "Facts and Myths" dans le texte.
+
+# Fin de texte 
+partie2 <- str_locate(texteANG_complet, "CHAPTER 1")
+print(partie2)
+
+# Extraire la partie du texte entre ces deux positions
+texte_decoupe1 <- substr(texteANG_complet, partie1, partie2[1])
+
+#La partie extraite correspond à l'introduction. 
+
+# Convertir le texte en minuscules et supprimer la ponctuation
+cleaned_text1 <- tolower(texte_decoupe1)
+cleaned_text1 <- gsub("\\W", " ", cleaned_text1)
+
+# Créer un data frame avec un mot par ligne
+word_dataBIS <- tibble(text = cleaned_text1) %>%
+  unnest_tokens(word, text)
+
+# Charger le lexique AFINN
+afinn_lexicon <- read.table("AFINN-1112.txt", header = FALSE, stringsAsFactors = FALSE, col.names = c("word", "score"))
+View(afinn_lexicon)
+
+# Convertir la colonne "score" en numérique
+afinn_lexicon$score <- as.numeric(afinn_lexicon$score)
+
+# Appliquer le lexique au texte
+sentiment_scores <- word_dataBIS %>%
+  inner_join(afinn_lexicon, by = c("word" = "word")) %>%
+  group_by(word) %>%
+  summarize(sentiment_score = sum(score, na.rm = TRUE))  # Assurez-vous de supprimer les NA si nécessaire
+
+# Afficher les valeurs uniques de la colonne "score"
+unique_scores <- unique(afinn_lexicon$score)
+print(unique_scores)
+
+# Calculer le score de sentiment moyen pour le texte
+sentiment_score_texte <- mean(sentiment_scores$sentiment_score)
+
+# Interpréter le résultat
+if (sentiment_score_texte > 0) {
+  print("Le texte est positif.")
+} else if (sentiment_score_texte < 0) {
+  print("Le texte est négatif.")
+} else {
+  print("Le texte est neutre.")
+}
+
+sentiment_score_texte
+
+#résulat : [1] "Le texte est positif."
+#La partie introduction du livre est considérée comme positive 
