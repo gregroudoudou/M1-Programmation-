@@ -2,6 +2,7 @@
 
 ## Structure du Repository
 
+**License**: to read  in order to modify, please contact me with grgoirefuchs@gmail.com
 **/L3/**
 What is the most important factor in economic growth? Health?
 
