@@ -2,4 +2,35 @@ SELECT "title" FROM "longlist" WHERE "format" <> 'hardcover';
 #<> : pas égal
 #'chaine de caractere'
 
+PRAGMA table_info(NomDeVotreTable);
+#sqlite3 répertoire/nom.db  ;spéciifer un fichier dans un répertoire spéciifque; 
+#.tables : vérifier le nom qui n'est pas équivalnet : 
+
+
+SELECT "title" FROM "longlist" WHERE "format" <> 'hardcover';
+#<> : pas égal
+#'chaine de caractere'
+
+SELECT "title", "pages"
+FROM "longlist"
+WHERE "pages" < 300;#sélection unique des lignes qui ont une caractéristique qui a moins de Y NOMBRE ! 
+#Je voudrais sélectionner uniquement les lives qui ont XCOLONNE DE MOINS /Ycolonnes de moins 
+#L'opérateur <> : inférieur/supérieur est gardé. 
+
+SELECT "title", "rating", "votes"
+
+
+FROM "longlist"
+WHERE "rating" > 4.0 AND "votes" > 10000;
+
+#Comment réarranger dans un certain ordre ? un ordre croissant ?
+#sélectionner les 10 plus mauvais livres 
+SELECT "title", "rating"
+FROM "longlist"
+ORDER BY "rating" LIMIT 10;
+
+#LIMIT : donne une limiation d'affichage en termes de nombres d'éléments qui vont apparaître 
+#ORDER by : permet de classer en ordre croissant. 
+
+#Sélectionner les 10 meilelurs livres 
 
