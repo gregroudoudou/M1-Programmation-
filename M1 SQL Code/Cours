@@ -1,1 +1,5 @@
+SELECT "title" FROM "longlist" WHERE "format" <> 'hardcover';
+#<> : pas égal
+#'chaine de caractere'
+
 
