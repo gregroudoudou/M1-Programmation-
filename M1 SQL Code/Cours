@@ -2,10 +2,12 @@ SELECT "title" FROM "longlist" WHERE "format" <> 'hardcover';
 #<> : pas égal
 #'chaine de caractere'
 
-PRAGMA table_info(NomDeVotreTable);
+#Commencer efficacement : 
+#.exit ; pour sortir et recharger une nouvelle base de données ; 
+
 #sqlite3 répertoire/nom.db  ;spéciifer un fichier dans un répertoire spéciifque; 
 #.tables : vérifier le nom qui n'est pas équivalnet : 
-
+##PRAGMA table_info(NomDeVotreTable);
 
 SELECT "title" FROM "longlist" WHERE "format" <> 'hardcover';
 #<> : pas égal
