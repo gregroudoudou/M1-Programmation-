@@ -1,0 +1,560 @@
+\documentclass{beamer}
+\usepackage{graphicx} 
+\usepackage{tabularx} 
+
+\title{Technique de programmation}
+\author{Thomas - Grégoire - Essi}
+\date{Avril 2025}
+\institute[Université de Strasbourg]{Université de Strasbourg}
+\usepackage{tikz}
+\usetheme{Copenhagen}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{But du projet}
+\begin{itemize}
+    \item Création d'un modèle capable de répondre à des questions
+\end{itemize}
+\vspace{1cm}
+
+    \begin{block}{On pose une question :}
+        \textit{“Où trouver des légumes en circuits courts près de Meinau”}
+    \end{block}
+\vspace{1cm}
+
+\begin{itemize}
+    \item Selon le prompt, le modèle nous oriente localement en fonction de la demande
+\end{itemize}    
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Le web scraping}
+\framesubtitle{Pourquoi faire ?}
+
+\begin{itemize}
+    \item Données fiables et récentes
+    \item Éviter les biais 
+    \item Adapter le modèle au territoire
+    \item Centraliser l’information
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.25\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{10635046.png}
+        \caption{Fiabilité}
+        \label{fig:image1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.25\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{6394065.png}
+        \caption{Centralisation}
+        \label{fig:image2}
+    \end{minipage}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{Le web scraping}
+\framesubtitle{Comment ? }
+
+
+
+\begin{itemize}
+    \item Web Scrapping de plusieurs sites
+    \item Utilisation du package Trafilatura
+    \item Cela évite d'avoir à utliser du regex, pour chaque site
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.25\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{trafilatura.png}
+        \caption{Trafilatura}
+        \label{fig:image1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{regex.png}
+        \caption{Regex}
+        \label{fig:image2}
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Le web scraping}
+\framesubtitle{Comment ?}
+
+\begin{itemize}
+    \item Phase la plus longue : trouver des sites récent et pertinents
+    \item On rassemble toutes les urls dans un fichier .txt
+    \item On boucle sur le fichier, en webscrappant chaque site, puis on rassemble dans un fichier json la data, sous la forme d’un dictionnaire
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{screen1.png}
+        \caption{Boucle for}
+        \label{fig:image1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.25\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{screen2.png}
+        \caption{Structure dictionnaire}
+        \label{fig:image2}
+    \end{minipage}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}{Le web scraping}
+\framesubtitle{API}
+
+\begin{itemize}
+    \item Utilisation de l’API data.strasbourg.eu
+    \item Très grosse quantité d’information
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{pip-install-requests.png}
+    \caption{Requests}
+    \label{fig:enter-label}
+\end{figure}
+    
+\end{frame}
+
+
+\begin{frame}{Les modèles}
+
+\begin{center}
+    \Large Quel modèle d’IA ferait un bon conseiller ?
+
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Le modèle OPT de méta}
+
+Critère principal : Dilemme Inflation/Chômage. Ici on va parler de dilemme RAM/Qualité. 
+\vspace{1cm}
+
+
+\begin{block}{Léger et donc facile à faire tourner sans erreur de dépassement de RAM}
+Un modèle beaucoup plus petit que le Llama  : facile  à  tourner beaucoup plus facilement sur Colab, même en CPU.
+    
+\end{block}
+
+\begin{block}{Peu qualitatif}
+trop petit en termes de nombre de paramètres, il peut aussi être plus decontextualisé et faire plus "d'hallucination"
+\end{block}
+    
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Le modèle OPT de méta}
+
+Quantification (GPTQ) :quand savoir arrondir, sauve notre projet. \\
+
+But: permet de faire tourner notre LLM même sur des petites machines.\\
+
+Comment? Quantification personnelle ou modèle pré-quantifié à l’avance en Q bits (GPTQ).\newline
+
+Entrée : on simplifie le langage en arrondissant le langage qui a beaucoup de décimales, moins de décimales en entrée = beaucoup moins de RAM. 
+En sortie : on réalise l’inverse avec une clé. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\linewidth]{screen30.png}
+    \label{fig:enter-label}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Tests de prompts anglais/français : la méthode “Luna Lovegood ”, les “Anglophones” préférés?}
+
+
+\begin{tabularx}{\linewidth}{|X|X|X|}
+\hline
+\small Meta 1,3 Bits (Modèle open-source sur Hugging Face, sans tarification au token).  & 
+\tiny Prompt  en Francais: Propose des solutions pour l'environnement? Il y a quelque chose qui serait maladroit dans le monde, mais l'opposition au climat est pas mal énergique.   Quelle était la pause? ... & 
+\small Faible 5GO sans quantification 1,2go avec quantification \\ 
+\hline
+\small OPT 125 avec prompt en anglais (permet de diminuer le risque d'hallucinations) & \tiny Yes, that is sensationalist if we're talking about global warming.  But I think it's sensationalist to say that a small amount of salt in a small portion of food is going to be significant to climate change.  The article is trying to ... & \small Faible également
+CL: meilleur modèle. Idée d’un pipeline de traduction.
+ \\
+\hline
+\end{tabularx}
+    
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{facteur de performance : l’enseignement ou le 
+pré-entraînement aux prompts}
+
+Mistral 7B non instruit à 4 bits “classique”: même prompt : quelles propositions écologiques pouvez vous faire ? (modèle 1)
+
+\vspace{0.3cm}
+
+\tiny An MBA is a degree awarded to graduates of business administration programs, particularly in the United States. ​ The Eco-MBA® is a degree awarded to graduates of programs dedicated to research and the development of solutions to protect the environment at the level of decision-making and management of natural environments, in the private and public sectors, as well as ... \newline
+
+\small Plutôt bête malgré une quantification 4 bits. Pourquoi ? Car il ne comprend pas bien la requête demandée : il a besoin d’être INSTRUIT ! \newline 
+
+Qu'entend on par instruit ? Pré-entraîné à obéir à des prompts du type "propose moi"/"explique-moi" \newline 
+
+\begin{block}{Exemple : }
+        Instruction : Explique la photosynthèse. Réponse : La photosynthèse est un processus par lequel…
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Le modèle gagnant : Mistral 7b Instruct, un modèle français pré-quantifié en 4 bits avec une réponse correcte mais en anglais.}
+
+
+Prompt en français (traducteur intégré) : Propose des solutions concrètes pour préserver l'environnement.
+
+
+\begin{enumerate}
+    \item Reduce, Reuse, Recycle: Implement the three R's in your daily life to reduce waste and conserve resources.
+    \item Use Energy-Efficient Appliances: Upgrade to energy-efficient appliances and lighting to reduce your energy consumption.
+    \item Conserve Water: Fix leaks, take shorter showers, and use a broom instead of a hose to clean driveways and sidewalks to conserve water.
+    \item Use Public Transportation: Reduce your carbon footprint by using public transportation instead of driving alone.
+    \item Reduce, Reuse, Recycle [...]
+\end{enumerate}
+
+Résultat très structuré et facile à lire
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{le grand Gagnant : Zephyr (Opensource)}
+
+
+Réponse Zephir 4 bits basé sur le Mistral originel, le prompt : propose des solutions concrètes pour préserver l'environnement. 
+
+\begin{enumerate}
+    \item Reduce your energy consumption:
+    \begin{enumerate}[a)] % Style alphabétique
+        \item Use energy-efficient lighting, such as LED bulbs and ...
+        \item Turn off lights and unplug electronics when not in use, as they ...
+        \item Install a programmable thermostat to automatically regulate heating ...
+    \end{enumerate}
+    \item Reduce your water consumption:
+    \begin{enumerate}[a)] % Style romain
+        \item Install low-flow showerheads and faucets, which can ...
+        \item Only run your dishwasher when it is ..
+    \end{enumerate}
+\end{enumerate}
+
+Réponse claire et concrète
+
+\end{frame}
+
+
+\begin{frame}{Les modèles}
+\framesubtitle{Pourquoi une réponse de ce type par ce Mistral7B modifié Zephyr ?}
+
+\begin{block}{DPO (direct preference optimizer) / ultra feedback :}
+Son but : il est plus poli/ plus préférable/ plus précis. \newline
+
+Comment : entraînement : instruction =>A,B,C,D Réponse A >Réponse B \newline 
+
+Cela augmente la rationalité de l’IA  : il génère moins de texte “problématique” socialement. Donc on oriente un peu l’IA. (il est pré-entraîné ici sur du Wikipédia).
+\end{block}
+
+\begin{block}{Instruit par UltraChat (Huggingface):}
+UltraChat est un dataset open-source créé pour entraîner ou tester des modèles avec la méthode "instruct". Il contient des milliers de dialogues ou d'instructions avec réponses. Deux techniques encouragées par Hugging Face.
+\end{block}
+    
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Un perdant : Deepseek}
+
+Faire marcher Deepseek implique beaucoup d’erreurs : soit de RAM, peu compréhensibles, impossible sur les packages classiques. La seule solution : utiliser le package Llama pour charger le modèle : \textbf{Transformer}
+
+\begin{itemize}
+    \item Un transformer qui autorise d’utiliser uniquement le CPU
+    \item Optimisé pour les GPU T4, notamment NVIDIA ! 
+    \item Facile et simple
+    \item Inférence hybride : utilise autant le CPU que le GPU pour certaines tâches. Ainsi, il utilise autant la RAM de l’ordinateur que la VRAM du GPU. 
+    \item \textit{A noter : Absence d’utilisation du GPU dans notre cas (limite Colab)}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Exemples de réponses}
+
+\begin{itemize}
+    \item \footnotesize 3 bits : En tant qu'IA, je ne suis pas capable de proposer en faveur de l'écologie car je suis axée sur la compréhension et la gestion des informations. Je ne suis pas programmée pour faire une analyse écologique ou pour proposer des éléments en faveur de l'écologie.
+    \item \footnotesize 4 bits : En tant que robot, je ne suis pas libre de proposer des idées en faveur de l'écologie au quotidien. Ma création a été basée sur une philosophie écologique et a pour but d'assister les utilisateurs dans leurs démarches écologiques. 
+    \item 6 bits (augmentation de la politesse et langage plus soutenu) :  Désolé, mais en tant qu'IA, je ne suis pas programmée pour proposer des idées ou des pratiques écologiques. Ma fonction est de fournir des informations et de fournir de l'aide à l'utilisateur dans le domaine de la science informatique.
+\end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{Les modèles}
+
+\begin{center}
+    \Large Quelle utilité de l’IA dans ce projet ?
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Fonctionnalités : Résumer efficacement l’information}
+Le modèle, permet notamment de résumer efficacement en quatres lignes ces informations.
+
+\begin{enumerate}
+    \item Le contenu du panier
+    \item Connaître le coût
+    \item Savoir où chercher le panier
+    \item Savoir quand acheter le panier
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Deux exemples d'output, OPT 125 et OPT 125M}
+
+\begin{block}{OPT 125 : 200 tokens max (4,5 caractères=1 token)}
+Résultat, tous les produits sont supprimés :\\
+Nom : None\\
+Adresse : 196 route de Saverne\\
+Produits : 60 producteurs.\\
+
+\end{block}
+
+
+\begin{block}{OPT 125 M :}
+Nom : None\\
+Adresse : 196 route de Saverne\\
+Produits : 60 producteurs. \\                                              Fruits et légumes de saison, boucherie et charcuterie, truites, crémerie, boulangerie et patisserie, épicerie fine, miel, pates, fleurs, boissons alcoolisées et non alcoolisées, traiteur
+Horaires : 
+Contact : 03 88 30 84 40, contact@hopla-ferme.fr
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Une réponse “raffinée” de Zephyr :}
+
+\textit{NB : L’output maximal était de 200 tokens pour les 2 / mots.}
+
+\begin{block}{La réponse de Zephyr, 200 tokens}
+\footnotesize Quoi : 60 producteurs offrent une variété de produits tels que fruits et légumes de saison, boucherie et charcuterie, truites, crèmerie, boulangerie et pâtisserie, épicerie fine, miel, pâtes, fleurs, boissons alcooliséess et non alcoolisées, traiteur.
+Coût : Non spécifié.
+Où : 196 route de Saverne.
+Quand : Horaires non specifiées.
+Contact : 03 88 30 84 40 ou contact@hopla-ferme.fr.
+\end{block}
+
+En conclusion, peu de pertes de qualité, plus littéraire et affiche les contacts.
+
+\begin{block}{La réponse de Zephyr, 100 tokens}
+\footnotesize Le texte présente les informations suivantes : le nom n'est pas connu, l'adresse est 196 route de Saverne, les produits sont divers et incluent des fruits et légumes de saison, de la boucherie et charcuterie, des truites, une crème, des pâtisseries, une épicerie fine, du miel, des pâtes.
+\end{block}
+    
+\end{frame}
+
+
+\begin{frame}{Les modèles}
+\framesubtitle{Conseiller des actions concrètes à l’école en faveur de l’écologie :le délégué Zéphyr fait sa révolution à la FSEG}
+
+\textit{Contexte : conseil de perfectionnement écologique}
+
+\begin{enumerate}
+    \item Interface graphique 
+    \item Possibilité choisir la question voulue parmi 13
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{screen31.png}
+    \label{fig:enter-label}
+\end{figure}
+
+\textit{Méthode : ne marche pas, donc j’ajoute un 0 pour rendre explicite que le programme doit continuer à s’exécuter jusqu’à 0=quitter. }
+
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Exemple : l'utilisateur rentre la question 6} 
+
+Comment sensibiliser les élèves à la consommation responsable à l'école ?
+
+\begin{enumerate}
+    \item Établir une politique environnementale scolaire : La première étape consiste à établir une politique environnementale scolaire qui doit être approuvée par le conseil d'administration de l'école. Cette politique doit être conçue de manière participative avec les élèves, les enseignants et les parents. Elle doit comprendre les principes de la consommation responsable et les actions à mettre en place pour les promouvoir.
+    \item Éduquer les élèves : Les élèves doivent être sensibilisés à la consommation responsable et à la protection de l'environnement. Les enseignants doivent intégrer les principes de la consommation responsable dans leurs cours.
+\end{enumerate}
+    
+\end{frame}
+
+\begin{frame}{Les modèles}
+\begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{screen32.png}
+        \caption{Exemple}
+        \label{fig:enter-label}
+    \end{figure}
+        
+\end{frame}
+
+\begin{frame}{Les modèles}
+\framesubtitle{Répondre à des questions}
+Le but : inciter à la consommation proche de chez soi, en suscitant l’envie par des questions précises ! 
+
+\begin{enumerate}
+    \item Il crée des questions avec un prompt sur le budget
+    \item Il crée les réponses
+    \item Mais on automatise à la fin le choix parmi 10 questions pour l’utilisateur ! 
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{L'interface graphique}
+\framesubtitle{Les fonctionnalités}
+
+\begin{itemize}
+    \item Recherche intelligente d'informations écologiques locales
+    \item Un jeu interactif pour comprendre l'impact carbone des loisirs
+    \item Une carte interactive des lieux écologiques à Strasbourg
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{L'interface graphique}
+\framesubtitle{L'onglet recherche}
+\setbeamertemplate{itemize items}[square]
+L’interface de cet onglet est divisée en plusieurs sections claires pour guider les utilisateurs.
+
+\begin{itemize}
+    \item la zone de consignes et de conseils : aide les utilisateurs à formuler leurs questions de manière précise en utilisant des mots-clés pertinents comme 'panier', 'local', 'bio', etc.
+    \item Zone de saisie et Zone d'affichage de réponses
+    \item Questions fréquemment posées: En prenant l'une de ces questions, les utilisateurs peuvent rapidement obtenir une réponse.
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.28\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{9.jpeg}
+        \label{fig:image1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.60\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{10.jpeg}
+        \label{fig:image2}
+    \end{minipage}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}{L'interface graphique}
+\framesubtitle{L'onglet recherche}
+\setbeamertemplate{itemize items}[square]
+Quand l’utilisateur fait une recherche, le système:
+\begin{itemize}
+    \item Analyse puis identifie les termes clés utilisés, par exemple ‘Localisation’...
+    \item Rechercher des correspondances rapidement grâce à un index construit à partir de notre base de données en fichiers JSON.
+    \item Calcule un “score de pertinence” pour les résultats trouvés
+    \item Les résultats sont triés par score de pertinence, et seules les trois meilleures réponses sont conservées
+\end{itemize}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.50\linewidth]{screen3.png}
+    \label{fig:enter-label}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{L'interface graphique}
+\framesubtitle{L'onglet "Jeu du Budget Vert : Week-end Éco-Loisirs"}
+
+\begin{block}{Objectif du jeu}
+Planifier un week-end à Strasbourg en respectant un budget carbone
+\end{block}
+\setbeamertemplate{itemize items}[square]
+
+\begin{itemize}
+    \item Chaque activité est  associée à un ‘coût carbone’
+    \item Bouton "Terminer mon week-end" : déclenche l'évaluation du bilan carbone de l'utilisateur
+\end{itemize}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.42\linewidth]{11.jpeg}
+    \label{fig:enter-label}
+\end{figure}
+
+    
+\end{frame}
+
+\begin{frame}{L'interface graphique}
+\framesubtitle{L'onglet "Jeu du Budget Vert : Week-end Éco-Loisirs"}
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{screen6.png}
+        \label{fig:image1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{screen7.png}
+        \label{fig:image2}
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{L'interface graphique}
+\framesubtitle{L'onglet "Carte des Lieux Écologiques"}
+\setbeamertemplate{itemize items}[square]
+
+\begin{itemize}
+    \item Une carte interactive affichant des lieux écologiques importants à Strasbourg (marchés locaux, épiceries bio, etc.).
+    \item Les marqueurs permettent de localiser facilement ces initiatives.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{13.jpeg}
+    \caption{Carte}
+    \label{fig:enter-label}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Annexe}
+
+\url{https://docs.google.com/presentation/d/1EKSiUVxx9GS2_AhxAvNLYZfhHPDPm4AWqGAaVk2Gq3k/edit#slide=id.g34fa6740894_1_9}
+    
+\end{frame}
+
+\end{document}
+
+

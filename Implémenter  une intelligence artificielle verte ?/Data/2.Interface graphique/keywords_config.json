@@ -1,0 +1,166 @@
+{
+    "categories": {
+        "paniers": {
+            "keywords": [
+                "panier",
+                "cagette",
+                "box",
+                "kit",
+                "sac",
+                "paniers",
+                "commande",
+                "abonnement",
+                "livraison"
+            ],
+            "subcategories": {
+                "bio": [
+                    "bio",
+                    "écologique",
+                    "naturel",
+                    "organic",
+                    "sans pesticides",
+                    "sans engrais"
+                ],
+                "étudiant": [
+                    "étudiant",
+                    "université",
+                    "crous",
+                    "campus",
+                    "réduit",
+                    "pas cher",
+                    "économique",
+                    "tarif solidaire"
+                ],
+                "légumes": [
+                    "légume",
+                    "carotte",
+                    "salade",
+                    "tomate",
+                    "potager",
+                    "primeur",
+                    "agriculture",
+                    "potagère"
+                ]
+            }
+        },
+        "produits_locaux": {
+            "keywords": [
+                "local",
+                "régional",
+                "producteur",
+                "fermier",
+                "terroir",
+                "alsacien",
+                "made in alsace",
+                "circuit court",
+                "vente directe",
+                "producteurs locaux",
+                "agriculteur"
+            ],
+            "subcategories": {
+                "viande": [
+                    "viande",
+                    "boucher",
+                    "volaille",
+                    "charcuterie"
+                ],
+                "fromage": [
+                    "fromage",
+                    "laitier",
+                    "fermier",
+                    "chèvre"
+                ]
+            }
+        },
+        "épiceries": {
+            "keywords": [
+                "épicerie",
+                "magasin",
+                "boutique",
+                "commerce",
+                "shop",
+                "alimentation",
+                "supermarché",
+                "supérette"
+            ],
+            "subcategories": {
+                "solidaire": [
+                    "solidaire",
+                    "social",
+                    "courage",
+                    "entraide",
+                    "associatif",
+                    "caritatif",
+                    "secours populaire",
+                    "CCAS"
+                ]
+            }
+        },
+        "restaurants": {
+            "keywords": [
+                "restaurant",
+                "manger",
+                "repas",
+                "bouffe",
+                "table",
+                "cuisine",
+                "traiteur",
+                "snack"
+            ],
+            "subcategories": {
+                "bio": [
+                    "bio",
+                    "organic",
+                    "nature",
+                    "sains"
+                ],
+                "vegan": [
+                    "vegan",
+                    "végétalien",
+                    "sans viande",
+                    "cru"
+                ]
+            }
+        }
+    },
+    "localisation": {
+        "strasbourg": [
+            "strasbourg",
+            "stras",
+            "67000",
+            "67000",
+            "alsace",
+            "bas-rhin",
+            "centre-ville",
+            "krutenau",
+            "neudorf",
+            "croix-rouge"
+        ],
+        "adresse_complete": {
+            "patterns": [
+                "\\d+\\s+(rue|avenue|boulevard|quai|place|impasse|allée|route)\\s+[\\w\\s-]+",
+                "\\b[zA-Za-z]+\\s+(?:à|au)\\s+[\\w\\s-]+"
+            ],
+            "required_fields": [
+                "adresse",
+                "code_postal",
+                "ville"
+            ]
+        }
+    },
+    "synonymes_generaux": {
+        "pas cher": [
+            "abordable",
+            "économique",
+            "bon marché",
+            "low cost",
+            "prix doux"
+        ],
+        "urgence": [
+            "immédiat",
+            "rapide",
+            "tout de suite",
+            "dépannage"
+        ]
+    }
+}

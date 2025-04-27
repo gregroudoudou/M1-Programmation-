@@ -1,0 +1,182 @@
+[
+    {
+        "url": "https://www.reussir.fr/fruits-legumes/un-concept-innovant-pour-ecouler-mes-produits",
+        "description": "Un concept innovant pour écouler des produits locaux et vintage à Strasbourg.",
+        "localisation": "Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Produits locaux, fruits, légumes, objets vintage",
+        "categorie": "Commerce local",
+        "update": "2023-01-15"
+    },
+    {
+        "url": "https://www.dna.fr/politique/2025/01/15/un-vrai-elan-de-solidarite-pour-l-epicerie-sociale",
+        "description": "Un élan de solidarité pour l'épicerie sociale intercommunale de Gundershoffen.",
+        "localisation": "Rue Principale, Gundershoffen, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Produits alimentaires à tarif réduit",
+        "categorie": "Epicerie solidaire",
+        "update": "2025-01-15"
+    },
+    {
+        "url": "https://www.dna.fr/societe/2021/12/03/l-epicerie-sociale-ne-connait-pas-la-crise",
+        "description": "L'épicerie sociale de Gundershoffen continue d'assurer son service pour les personnes précaires.",
+        "localisation": "Rue d'Uttenhoffen, Gundershoffen, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Produits alimentaires à tarif réduit",
+        "categorie": "Epicerie solidaire",
+        "update": "2021-12-03"
+    },
+    {
+        "url": "https://www.francebleu.fr/emissions/l-eco-d-ici-ici-alsace/solibio-la-cooperative-grossiste-alsacienne-bio-a-le-vent-en-poupe-5368146",
+        "description": "Solibio, une coopérative grossiste bio en Alsace, en pleine croissance.",
+        "localisation": "Marché-Gare, Rue du Marché, Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Produits bio : fruits, légumes, produits laitiers, viande",
+        "categorie": "Coopérative bio",
+        "update": "2024-01-15"
+    },
+    {
+        "url": "https://www.lespaniersdupetitlucien.fr/#informations",
+        "description": "Service de paniers de fruits et légumes de saison avec points relais.",
+        "localisation": "Strasbourg, France",
+        "contacts": "info@lespaniersdupetitlucien.fr",
+        "type_de_produits": "Fruits et légumes de saison",
+        "categorie": "Livraison de paniers",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://cop1.fr/a-propos/",
+        "description": "Association Cop1 pour lutter contre la précarité étudiante avec des paniers alimentaires.",
+        "localisation": "Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Paniers alimentaires variés",
+        "categorie": "Aide alimentaire",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://cop1.fr/aide-alimentaire/",
+        "description": "Distributions alimentaires gratuites pour les étudiants en situation de précarité.",
+        "localisation": "Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Produits alimentaires variés",
+        "categorie": "Aide alimentaire",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://cop1.fr/ville/strasbourg/",
+        "description": "Distributions hebdomadaires de paniers alimentaires gratuits pour étudiants à Strasbourg.",
+        "localisation": "Strasbourg, France",
+        "contacts": "strasbourg@cop1.fr",
+        "type_de_produits": "Paniers alimentaires",
+        "categorie": "Aide alimentaire",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.foyers-etudiants-strasbourg.org/paniers-solidaires-pour-les-etudiants/",
+        "description": "Paniers solidaires de fruits et légumes pour étudiants à Strasbourg.",
+        "localisation": "5 Avenue du Cimetière, Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Fruits et légumes de saison",
+        "categorie": "Epicerie solidaire",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.neozone.org/societe/la-ville-de-strasbourg-perennise-lordonnance-verte-en-offrant-des-paniers-de-legumes-bio-aux-futures-mamans/",
+        "description": "L'ordonnance verte : paniers de légumes bio gratuits pour les femmes enceintes à Strasbourg.",
+        "localisation": "Strasbourg, France",
+        "contacts": "ordonnanceverte@strasbourg.eu",
+        "type_de_produits": "Légumes bio",
+        "categorie": "Aide alimentaire",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://strasinfo.fr/2025/03/20/le-petit-marche-ouvre-ses-portes-a-cronenbourg-un-nouveau-concept-qui-mele-alimentaire-et-convivialite/",
+        "description": "Le Petit Marché : un marché hybride mêlant produits locaux et animations à Cronenbourg.",
+        "localisation": "Square Saint-Florent, Cronenbourg, Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Produits locaux : fruits, légumes, produits laitiers",
+        "categorie": "Marché local",
+        "update": "2025-03-20"
+    },
+    {
+        "url": "https://www.vertici.fr",
+        "description": "VERT ICI : salades, sandwichs et smoothies personnalisés avec des produits frais.",
+        "localisation": "Centre commercial Aubette, Place Kléber, Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Salades, sandwichs, smoothies",
+        "categorie": "Restauration rapide",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.strasbourg.eu/-/atelier-reserve-naturelle",
+        "description": "Atelier participatif pour la gestion de la réserve naturelle de Neuhof/Illkirch-Graffenstaden.",
+        "localisation": "Neuhof/Illkirch-Graffenstaden, Strasbourg, France",
+        "contacts": "stras.me/atelier-reserve-neuhof",
+        "type_de_produits": "non applicable",
+        "categorie": "Environnement",
+        "update": "2024-09-27"
+    },
+    {
+        "url": "https://www.ekogai.fr",
+        "description": "Ekogaï accompagne les entreprises dans leur transition écologique et sociale.",
+        "localisation": "non renseigné",
+        "contacts": "non renseigné",
+        "type_de_produits": "Conseil en transition écologique",
+        "categorie": "Consulting",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.samudelenvironnement.org/accueil/à-propos-de-nous/",
+        "description": "SAMU de l'environnement Alsace : actions pour la préservation de l'environnement.",
+        "localisation": "Alsace, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Services environnementaux",
+        "categorie": "Environnement",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.samudelenvironnement.org/accueil/nos-actions/",
+        "description": "Actions pour intégrer l'environnement dans les activités économiques.",
+        "localisation": "Alsace, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Consulting environnemental",
+        "categorie": "Environnement",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.sikle.fr/ville-fertile",
+        "description": "Sikle : collecte et compostage urbain pour une agriculture durable.",
+        "localisation": "Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Compost",
+        "categorie": "Agriculture urbaine",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.sikle.fr/les-composteurs-de-strasbourg",
+        "description": "Sikle : composteurs urbains pour valoriser les biodéchets.",
+        "localisation": "Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "Compost",
+        "categorie": "Agriculture urbaine",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://www.fondationdelamer.org/nos-actions/",
+        "description": "Fondation de la Mer : actions pour protéger la biodiversité marine.",
+        "localisation": "non renseigné",
+        "contacts": "non renseigné",
+        "type_de_produits": "non applicable",
+        "categorie": "Environnement",
+        "update": "non renseigné"
+    },
+    {
+        "url": "https://zds.fr/presentation/",
+        "description": "Zéro Déchet Strasbourg : sensibilisation et actions pour réduire les déchets.",
+        "localisation": "Strasbourg, France",
+        "contacts": "non renseigné",
+        "type_de_produits": "non applicable",
+        "categorie": "Environnement",
+        "update": "non renseigné"
+    }
+]
