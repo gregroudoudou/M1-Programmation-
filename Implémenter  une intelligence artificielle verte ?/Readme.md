@@ -79,7 +79,7 @@ BALLOGOU Essi Carole Claudia
 
 Cette partie du projet **est dédiée à la création** d’une intelligence verte **IA,dont la première partie est consacrée au choix du modèle le plus adéquat ; et la deuxième partie, au développement de 4 fonctionnalités liées à ces caractéristiques *.***
 
-## **II.Capacités et donc de multiples fonctionnalités possibles \!**
+## **II.Une IA avec de multiples capacités et donc de multiples fonctionnalités possibles \!**
 
 ## 
 
@@ -120,7 +120,14 @@ Cette partie du projet **est dédiée à la création** d’une intelligence ver
 
    *L’ensemble de nos modèles **sont en réalité issus du travail de multiples personnes: les créateurs de Zephyr, Mistral.** Ainsi, merci de lire leurs licences qui limitent potentiellement des utilisations commerciales.* 
 
-   *La licence Creative commons s’applique essentiellement au Diapo.* 
+   *La licence Creative commons s’applique essentiellement au Diapo.*
+
+   **Défis**
+   - prendre en compte les limites matérielles : utiliser le GPU de Colab gratuit: de nombreuses déconnections à cause de l'accès à son GPU à environ 2heures tout les 2/3 jours . Beaucoup de temps perdu.
+   - Débugger certains modèles : certains ont des méthodes peu connues ou vraiment spécifiques ;et il faut se renseigner précisément , comme pour Deepseek pour certains modèles qui ne marchait que avec un package Ollama. Certains packages de chargement de LLM n'acceptent que certains LLM ; marchent moins bien avec d'autres ; ou demande l'ajout d'un module spécifique au CUDA ,et donc au GPU du T4 de Colab
+   - Attendre : lancer un modèle d'IA peut prendre de 3 minutes à 8 minutes. Il faut être patient
+   - Gérer des interfaces grapiques avec l'IA : beaucoup ont des difficultés à les charger,notamment en WEB, ; ou font payer l'accès web , si on veut déployer sur le WEB.
+     Toutefois, ils étaient tous, autant que comprendre les spécifités des modèles, très challengeant, bien que cela demandait une forte résilience, même avec une semaine entière de tests continus sans voir une seule ligne qui fonctionne car il s'agissait de telle spécificité ; de Colab qui bugge ; ou que l'on réusssit, mais l'utilisation de la RAM fait tout **crashé. 
 
    ## **II.Pré-requis d’installation.** 
 
